@@ -31,7 +31,7 @@ export const ArticleList = () => {
                             title={article.title} 
                             author={article.user.name}
                             url={article.url}
-                            date={article.dateAdded.toLocaleString()}/>
+                            date={article.dateAdded}/>
 			})
       }
       </div>

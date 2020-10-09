@@ -6,7 +6,7 @@ export const ArticleCard = (article) => (
         <div className="article_synopsis">Synopsis: {article.synopsis}</div>
         <div className="article_author">Author: {article.author}</div>
         <div className="article_date">Date: {article.date}</div>
-        <a href={article.url}>Full Article</a>
+        <div className="article_url">Url: {article.url}</div>
         
     </section>
 )
