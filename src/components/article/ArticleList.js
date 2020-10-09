@@ -13,9 +13,6 @@ export const ArticleList = () => {
 		console.log("LocationList: useEffect - getArticles")
 		getArticles()
     }, [])
-
-
-
     return (
     <>
     <h2>Articles</h2>   
@@ -27,11 +24,7 @@ export const ArticleList = () => {
       {
       articles.map(article => {
         return <ArticleCard key={article.id} 
-                            synopsis={article.synopsis} 
-                            title={article.title} 
-                            author={article.user.name}
-                            url={article.url}
-                            date={article.dateAdded}/>
+                            article={article}/>
 			})
       }
       </div>
