@@ -1,9 +1,11 @@
 import React, { useContext } from "react"
 import { FriendContext } from "./FriendProvider"
+import { UserContext } from "./UserProvider"
 
 //creates html for each friend, which can be clicked to view the details of that friend
 export const UserCard = ({ user }) => {
     const { addFriend } = useContext(FriendContext)
+    const { getUsers } = useContext(UserContext)
     const userId = parseInt(localStorage.getItem("slasherUser"))
 
     const addFriendObj = () => {
@@ -17,6 +19,7 @@ export const UserCard = ({ user }) => {
                 friendUserId: userId
             })
         })
+        .then(getUsers)
     }
     
     return (
