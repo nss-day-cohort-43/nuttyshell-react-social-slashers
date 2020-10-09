@@ -22,16 +22,16 @@ export const FriendSearch = () => {
 
 export const UserList = () => {
     const { users, getUsers, searchTerms } = useContext(UserContext)
+    const { friends, getFriends } = useContext(FriendContext)
 
     // Since you are no longer ALWAYS displaying all of the users
     const [ filteredUsers, setFiltered ] = useState([])
 
-    const history = useHistory()
-
     // Empty dependency array - useEffect only runs after first render
     useEffect(() => {
-        getUsers()
-    }, [])
+        getFriends()
+        .then(getUsers)
+    }, [friends])
 
     // useEffect dependency array with dependencies - will run if dependency changes (state)
     // searchTerms will cause a change
@@ -44,7 +44,7 @@ export const UserList = () => {
             // If the search field is blank, display all animals
             setFiltered(users)
         }
-    }, [searchTerms, users])
+    }, [searchTerms, users, friends])
 
     return (
         <>
