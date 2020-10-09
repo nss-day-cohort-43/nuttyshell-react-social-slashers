@@ -1,35 +1,36 @@
 import React, { useRef } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 import "./Login.css"
 
 export const Register = (props) => {
+    const history = useHistory()
     const firstName = useRef()
     const lastName = useRef()
     const email = useRef()
+    const password = useRef()
     const verifyPassword = useRef()
-    const conflictDialog = useRef()
-    const history = useHistory()
+    const passwordDialog = useRef()
 
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/customers?email=${email.current.value}`)
-            .then(res => res.json())
+        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+            .then(_ => _.json())
             .then(user => !!user.length)
     }
 
     const handleRegister = (e) => {
         e.preventDefault()
 
-
-        existingUserCheck()
-            .then((userExists) => {
-                if (!userExists) {
-                    fetch("http://localhost:8088/customers", {
+        if (password.current.value === verifyPassword.current.value) {
+            existingUserCheck()
+                .then(() => {
+                    fetch("http://localhost:8088/users", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
                             email: email.current.value,
+                            password: password.current.value,
                             name: `${firstName.current.value} ${lastName.current.value}`
                         })
                     })
@@ -40,38 +41,66 @@ export const Register = (props) => {
                                 history.push("/")
                             }
                         })
-                }
-                else {
-                    conflictDialog.current.showModal()
-                }
-            })
-        
+                })
+        } else {
+            passwordDialog.current.showModal()
+        }
     }
 
     return (
         <main style={{ textAlign: "center" }}>
 
-            <dialog className="dialog dialog--password" ref={conflictDialog}>
-                <div>Account with that email address already exists</div>
-                <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
+            <dialog className="dialog dialog--password" ref={passwordDialog}>
+                <div>Passwords do not match</div>
+                <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Become a Social Slasher</h1>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
-                    <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
+                    <input ref={firstName} type="text"
+                        name="firstName"
+                        className="form-control"
+                        placeholder="First name"
+                        required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="lastName"> Last Name </label>
-                    <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="Last name" required />
+                    <input ref={lastName} type="text"
+                        name="lastName"
+                        className="form-control"
+                        placeholder="Last name"
+                        required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputEmail"> Email address </label>
-                    <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
+                    <input ref={email} type="email"
+                        name="email"
+                        className="form-control"
+                        placeholder="Email address"
+                        required />
                 </fieldset>
                 <fieldset>
-                    <button type="submit"> Sign in </button>
+                    <label htmlFor="inputPassword"> Password </label>
+                    <input ref={password} type="password"
+                        name="password"
+                        className="form-control"
+                        placeholder="Password"
+                        required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="verifyPassword"> Verify Password </label>
+                    <input ref={verifyPassword} type="password"
+                        name="verifyPassword"
+                        className="form-control"
+                        placeholder="Verify password"
+                        required />
+                </fieldset>
+                <fieldset>
+                    <button type="submit">
+                        Sign in
+                    </button>
                 </fieldset>
             </form>
         </main>
