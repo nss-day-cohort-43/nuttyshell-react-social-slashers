@@ -3,10 +3,12 @@ import { Route } from "react-router-dom"
 import { Home } from "./Home"
 import { ArticleList } from './article/ArticleList'
 import { ArticleProvider } from "./article/ArticleProvider"
+import { ArticleForm } from "./article/ArticleForm"
 import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
+
 
 export const ApplicationViews = (props) => {
     return (
@@ -20,6 +22,13 @@ export const ApplicationViews = (props) => {
                     <ArticleList />
                 </Route>
             </ArticleProvider>
+
+            <ArticleProvider>
+                <Route exact path="/articles/create">
+                    <ArticleForm />
+                </Route>
+            </ArticleProvider>
+
             <FriendProvider>
                 <Route exact path="/friends">
                     <FriendList />
