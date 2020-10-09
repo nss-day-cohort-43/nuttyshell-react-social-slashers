@@ -1,6 +1,8 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Home } from "./Home"
+import { ArticleList } from './article/ArticleList'
+import { ArticleProvider } from "./article/ArticleProvider"
 import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
@@ -13,6 +15,11 @@ export const ApplicationViews = (props) => {
                 <Home />
             </Route>
 
+            <ArticleProvider>
+                <Route exact path="/articles">
+                    <ArticleList />
+                </Route>
+            </ArticleProvider>
             <FriendProvider>
                 <Route exact path="/friends">
                     <FriendList />
