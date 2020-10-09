@@ -11,6 +11,7 @@ export const FriendContext = createContext()
  */
 export const FriendProvider = (props) => {
     const [friends, setFriends] = useState([])
+    const [ searchTerms, setSearchTerms ] = useState("")
     const userId = localStorage.getItem("slasherUser")
 
     //gets all friend relationships where friendUserId is the current logged in user
@@ -47,9 +48,14 @@ export const FriendProvider = (props) => {
             .then(getFriends)
     }
 
+    const getUsers = () => {
+        return fetch(`http://localhost:8088/users`)
+            .then(res => res.json())
+    }
+
     return (
         <FriendContext.Provider value={{
-            friends, getFriends, addFriend, getFriendById, deleteFriend
+            friends, getFriends, addFriend, getFriendById, deleteFriend, getUsers
         }}>
             {props.children}
         </FriendContext.Provider>

@@ -3,6 +3,8 @@ import { Route } from "react-router-dom"
 import { Home } from "./Home"
 import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
+import { FriendSearch, UserList } from "./friends/FriendSearch"
+import { UserProvider } from "./friends/UserProvider"
 
 export const ApplicationViews = (props) => {
     return (
@@ -15,6 +17,14 @@ export const ApplicationViews = (props) => {
                 <Route exact path="/friends">
                     <FriendList />
                 </Route>
+
+                <UserProvider>
+                    <Route exact path="/friends/add">
+                        <FriendSearch />
+                        <UserList />
+                    </Route>
+                </UserProvider>
+
             </FriendProvider>
 
         </>
