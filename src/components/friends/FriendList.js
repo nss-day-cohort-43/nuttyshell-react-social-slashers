@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { FriendContext } from "./FriendProvider"
 import { FriendCard } from "./FriendCard"
+import { useHistory } from "react-router-dom"
 
 export const FriendList = () => {
   // This state changes when `getFriends()` is invoked below
@@ -11,10 +12,14 @@ export const FriendList = () => {
 	  getFriends()
   }, [])
 
+  const history = useHistory()
   //returns the user's list of friends
   return (
     <div className="friends">
       <h2>Your Friends</h2>
+      <button onClick={()=> {history.push("friends/add")}}>
+        Add New Friend
+      </button>
       {
         friends.map(friend => {
           return <FriendCard key={friend.id} friend={friend} />
