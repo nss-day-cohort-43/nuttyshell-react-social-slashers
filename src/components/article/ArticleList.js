@@ -8,7 +8,7 @@ export const ArticleList = () => {
    // This state changes when `getEmployees()` is invoked below
     const { articles, getArticles } = useContext(ArticleContext)
     const thisUser = localStorage.getItem("slasherUser")
-    console.log(thisUser)
+  
 
     const myArticles = articles.filter((article) => {
         return article.userId === parseInt(thisUser)
@@ -16,14 +16,13 @@ export const ArticleList = () => {
 
 	//useEffect - reach out to the world for something
     useEffect(() => {
-		console.log("LocationList: useEffect - getArticles")
+
 		getArticles()
     }, [])
     return (
     <>
     <h2>Articles</h2>   
-    
-		{console.log("ArticleList: Render")}
+
     <div className="articles">
       {
       myArticles.map(article => {
