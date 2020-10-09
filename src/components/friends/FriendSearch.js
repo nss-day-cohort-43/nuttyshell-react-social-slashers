@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { FriendContext } from "./FriendProvider"
 import { UserContext } from "./UserProvider"
-import { useHistory } from "react-router-dom"
 import { UserCard } from "./UserCard"
 
 export const FriendSearch = () => {
@@ -27,7 +26,7 @@ export const UserList = () => {
     // Since you are no longer ALWAYS displaying all of the users
     const [ filteredUsers, setFiltered ] = useState([])
 
-    // Empty dependency array - useEffect only runs after first render
+    // dependency array is friends, so useEffect runs when friends changes state
     useEffect(() => {
         getFriends()
         .then(getUsers)
@@ -41,7 +40,7 @@ export const UserList = () => {
             const subset = users.filter(user => user.name.toLowerCase().includes(searchTerms.toLowerCase()))
             setFiltered(subset)
         } else {
-            // If the search field is blank, display all animals
+            // If the search field is blank, display all unadded users
             setFiltered(users)
         }
     }, [searchTerms, users, friends])
