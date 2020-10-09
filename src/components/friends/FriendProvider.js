@@ -13,12 +13,15 @@ export const FriendProvider = (props) => {
     const [friends, setFriends] = useState([])
     const userId = localStorage.getItem("slasherUser")
 
+    //gets all friend relationships where friendUserId is the current logged in user
+    //userId in the returned objects is expanded to show the friend(user)'s info
     const getFriends = () => {
         return fetch(`http://localhost:8088/friends?friendUserId=${userId}&_expand=user`)
             .then(res => res.json())
             .then(setFriends)
     }
 
+    //will be used for adding friends
     const addFriend = friendObj => {
         return fetch("http://localhost:8088/friends", {
             method: "POST",
@@ -30,11 +33,13 @@ export const FriendProvider = (props) => {
             .then(getFriends)
     }
 
+    //will be used for viewing friend details and deleting friend relationships
     const getFriendById = (id) => {
         return fetch(`http://localhost:8088/friends?friendUserId=${userId}&userId=${id}&_expand=user`)
             .then(res => res.json())
     }
 
+    //will be used twice when deleting a friend relationship
     const deleteFriend = relationshipId => {
         return fetch(`http://localhost:8088/friends/${relationshipId}`, {
             method: "DELETE"
