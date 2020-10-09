@@ -21,12 +21,23 @@ export const ArticleProvider = (props) => {
             },
             body: JSON.stringify(article)
         })
+    }
+
+    const getArticleById = (id) => {
+        return fetch(`http://localhost:8088/articles/${id}`)
+            .then(res => res.json())
+    }
+
+    const deleteArticle = articleId => {
+        return fetch(`http://localhost:8088/articles/${articleId}`, {
+            method: "DELETE"
+        })
             
     }
     
     return (
         <ArticleContext.Provider value={{
-            articles, getArticles, addArticle
+            articles, getArticles, addArticle, getArticleById, deleteArticle
         }}>
             {props.children}
         </ArticleContext.Provider>
