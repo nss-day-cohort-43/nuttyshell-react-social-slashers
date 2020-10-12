@@ -8,14 +8,19 @@ import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
+import { MessageProvider } from './message/MessageProvider'
+import { MessageForm } from "./message/MessageForm"
 
 
 export const ApplicationViews = (props) => {
     return (
         <>
-            <Route exact path="/">
-                <Home />
-            </Route>
+            <MessageProvider>
+                <Route exact path="/">
+                    <Home />
+                    <MessageForm />
+                </Route>
+            </MessageProvider>
 
             <ArticleProvider>
                 <FriendProvider>

@@ -30,10 +30,21 @@ export const MessageProvider = (props) => {
         })
     }
 
+    // Update an existing article using the article ID as a reference
+    const updateMessage = message => {
+        return fetch(`http://localhost:8088/messages/${message.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(message)
+        })
+    }
+
     // Below will provide the listed functions via MessageContext
     return (
         <MessageContext.Provider value={{
-            messages, getMessages, addMessage, deleteMessage
+            messages, getMessages, addMessage, deleteMessage, updateMessage
         }}>
             {props.children}
         </MessageContext.Provider>

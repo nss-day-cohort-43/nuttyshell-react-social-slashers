@@ -1,5 +1,5 @@
 import React, {useContext} from "react"
-import { MessageContext } from "./ArticleProvider"
+import { MessageContext } from "./MessageProvider"
 import { useHistory } from 'react-router-dom';
 
 export const MessageCard = ({message}) => {
