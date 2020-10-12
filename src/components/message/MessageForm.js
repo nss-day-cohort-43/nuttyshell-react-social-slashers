@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect, useState } from "react"
 import { MessageContext } from "../message/MessageProvider"
 import { useHistory, useParams } from 'react-router-dom';
 import { MessageCard } from "./MessageCard"
+import './message.css'
 
 export const MessageForm = (props) => {
     // Bring these functions from context
@@ -23,7 +24,7 @@ export const MessageForm = (props) => {
         newMessage[event.target.name] = event.target.value
         //update state
         setMessage(newMessage)
-        event.target.value = ""
+        //event.target.value = ""
     }
 
     // Get article state on initialization
@@ -46,6 +47,11 @@ export const MessageForm = (props) => {
                 })
                 // And then you will be directed to /articles
                 .then(() => getMessages())
+                .then(() => {
+                    // Clear the message input after sending message
+                    const clearer = document.querySelector("#messageMessage")
+                    clearer.value = ""
+                })
             } else {
                 window.alert("You must fill out the whole form!")
             }
@@ -67,13 +73,15 @@ export const MessageForm = (props) => {
     }
     return (
         <>
+        <div className="allMessageBox">
         <h2>Messages</h2>   
         <div className="messagesWindow">
             {
             messages.map(message => {
                 return <MessageCard key={message.id} message={message}/>
 			})
-            }</div>
+            }
+        </div>
         <form className="articleForm">
             <fieldset>
                 <div className="form-group">
@@ -81,6 +89,7 @@ export const MessageForm = (props) => {
                     <input type="text" id="messageMessage" name="message" required className="form-control" 
                     placeholder="Compose Message Here"
                     onChange={handleControlledInputChange}
+                    defaultValue=""
                     
                     />
                 </div>
@@ -94,6 +103,7 @@ export const MessageForm = (props) => {
                 Save Message
             </button>
         </form>
+        </div>
         </>
     )
 }
