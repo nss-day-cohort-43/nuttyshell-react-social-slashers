@@ -5,7 +5,7 @@ export const TaskContext = createContext();
 
 export const TaskProvider = (props) => {
     const [tasks, setTasks] = useState([])
-    const userId = localStorage.getItem("slasherUser")
+    const userId = sessionStorage.getItem("slasherUser")
 
 
     const getTasks = () => {

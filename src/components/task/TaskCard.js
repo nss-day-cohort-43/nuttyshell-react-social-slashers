@@ -77,7 +77,7 @@ export const TaskCard = ({taskObj}) => {
         if(isCompleted){ // if true is passed in -- if checkbox is 'checked'
             editTask({
                 id: taskObj.id,
-                userId: localStorage.getItem("slasherUser"),
+                userId: sessionStorage.getItem("slasherUser"),
                 task: taskObj.task,
                 expectedCompletionDate: taskObj.expectedCompletionDate,
                 status: true // update status 
@@ -87,7 +87,7 @@ export const TaskCard = ({taskObj}) => {
         else if(!isCompleted){ // if false is passed in -- if checkbox is 'unchecked'
             editTask({
                 id: taskObj.id,
-                userId: localStorage.getItem("slasherUser"),
+                userId: sessionStorage.getItem("slasherUser"),
                 task: taskObj.task,
                 expectedCompletionDate: taskObj.expectedCompletionDate,
                 status: false // update status 

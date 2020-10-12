@@ -75,7 +75,7 @@ export const TaskForm = () => {
                 // editTask takes an object and an Id ? 
                 editTask({
                     id: task.id,
-                    userId: localStorage.getItem("slasherUser"),
+                    userId: sessionStorage.getItem("slasherUser"),
                     task: task.task,
                     expectedCompletionDate: task.expectedCompletionDate,
                     status: false
@@ -88,7 +88,7 @@ export const TaskForm = () => {
                 // POST - add new task
                 // saveTask takes an object
                 saveTask({
-                    userId: localStorage.getItem("slasherUser"),
+                    userId: sessionStorage.getItem("slasherUser"),
                     task: task.task,
                     expectedCompletionDate: task.expectedCompletionDate,
                     status: false
