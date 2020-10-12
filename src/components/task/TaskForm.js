@@ -31,12 +31,7 @@ export const TaskForm = () => {
 
     
     const handleControlledInputChange = (event) => {
-        // pass in event as parameter to a function and the function becomes an event listener
-        //When changing a state object or array, 
-        //always create a copy make changes, and then set state.
         const newTask = { ...task } // spread operator, spreads an object into separate arguments
-        //animal is an object with properties. 
-        //set the property to the new value
 
         // evaluate whatever is in the [], accesses .task dynamically
         newTask[event.target.name] = event.target.value // what is in the form, named exactly like it is in state
@@ -46,7 +41,6 @@ export const TaskForm = () => {
     
 
     useEffect(() => {
-        //console.log("TaskList: useEffect - getTasks")
         getTasks()
         .then(() => {
             if (taskId) {
@@ -64,13 +58,11 @@ export const TaskForm = () => {
     }, []) 
 
     const constructTaskObject = () => {
-        //console.log("Want to save task");
         // Grab task information from form and create a new task object 
         if (task.task && task.expectedCompletionDate){
             // Both input fields have data in them, proceed
             setIsLoading(false); // still not sure what this does
             if(taskId){
-                //console.log("task? (taskId) : ", task);
                 // PUT - edit task
                 // editTask takes an object and an Id ? 
                 editTask({
@@ -81,10 +73,8 @@ export const TaskForm = () => {
                     status: false
                 },taskId)
                 .then(() => history.push("/")) // want to return back to home page?
-                .then(() => console.log("Editing Task: ", taskId))
             }
             else {
-                //console.log("task? : ", task);
                 // POST - add new task
                 // saveTask takes an object
                 saveTask({
@@ -94,25 +84,19 @@ export const TaskForm = () => {
                     status: false
                 })
                 .then(() => history.push("/")) // want to return back to home page
-                .then(() => console.log("Creating new task"))
             }
         }
         else if(task.expectedCompletionDate === undefined && task.task){
-            //console.log("Task.expCompDate === __ ");
             // completion date not entered, show warning
             window.alert("Select a date for when to complete the task");
-            //setIsLoading(true);
         }
         else if(task.expectedCompletionDate && task.task === undefined){
-            //console.log("Task.task === __ ");
             // task name not entered, show warning
             window.alert("Enter the name of the task you wish to create");
-            //setIsLoading(true);
         }
         else{
             // none of the input fields are filled out, show warning
             window.alert("You must fill out the whole form.");
-            //setIsLoading(true);
         }
     }
 
@@ -138,7 +122,6 @@ export const TaskForm = () => {
                 <div className="form-group">
                     <label htmlFor="task--expCompDate">Expected Completion Date: </label>
                     <input type="date" id="task--expCompDate" name="expectedCompletionDate" required className="form-control"
-                    //placeholder="Completion Date"
                     onChange={handleControlledInputChange}
                     defaultValue={task.expectedCompletionDate}/>
                 </div>

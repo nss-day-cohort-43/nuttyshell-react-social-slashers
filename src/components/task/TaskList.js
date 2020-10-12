@@ -3,7 +3,6 @@ import { TaskContext } from "./TaskProvider.js" // gives us Tasks, getTasks, add
 import { TaskCard } from "./TaskCard.js"
 import { TaskForm } from "./TaskForm.js"
 import { useHistory } from "react-router-dom"
-//import "./Task.css"
 
 export const TaskList = () => {
    // This state changes when `getTasks()` is invoked below
@@ -11,7 +10,6 @@ export const TaskList = () => {
     const history = useHistory()
 
     useEffect(() => {
-        //console.log("TaskList: useEffect - getTasks")
         getTasks()
         
     }, []) 
@@ -24,11 +22,9 @@ export const TaskList = () => {
                     New Task
                 </button>
             </div>
-            {console.log("taskList: Render")}
             <article className="taskList">
                 {
                     tasks.map(task => {
-                        //console.log("taskList  .map  task: ", task);
                         return <TaskCard key={task.id} taskObj={task} />
                     })
                 }
