@@ -12,6 +12,10 @@ import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
+import { EventProvider } from "./event/EventProvider"
+import { EventList } from "./event/EventList"
+import { EventForm } from "./event/EventForm"
+import { EventDetail } from "./event/EventDetail"
 
 
 export const ApplicationViews = (props) => {
@@ -36,9 +40,11 @@ export const ApplicationViews = (props) => {
             </TaskProvider>
 
             <ArticleProvider>
-                <Route exact path="/articles">
-                    <ArticleList />
-                </Route>
+                <FriendProvider>
+                    <Route exact path="/articles">
+                        <ArticleList />
+                    </Route>
+                </FriendProvider>
             </ArticleProvider>
 
             <ArticleProvider>
@@ -66,6 +72,24 @@ export const ApplicationViews = (props) => {
                 </UserProvider>
 
             </FriendProvider>
+
+            <EventProvider>
+                <FriendProvider>
+                <Route exact path="/events">
+                    <EventList />
+                </Route>
+                </FriendProvider>
+                <Route path="/events/edit/:eventId(\d+)">
+                    <EventForm />
+                </Route>
+                <Route exact path="/events/create">
+                    <EventForm />
+                </Route>
+                <Route exact path="/events/detail/:id">
+                    <EventDetail />
+                </Route>
+            </EventProvider>
+
 
         </>
     )

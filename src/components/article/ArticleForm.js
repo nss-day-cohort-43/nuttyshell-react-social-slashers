@@ -40,23 +40,37 @@ export const ArticleForm = (props) => {
        })
     }, [])
 
+
+
+
     // This will be used for to create the objects that will be saved / updated
     const constructNewArticle = () => {
         // Our user ID is stored in local storage with the "slasherUser" variable
         const userId = parseInt(sessionStorage.getItem("slasherUser"))
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> master
         // This will test if an article ID is present. If not, it will be saved as a new article
         if (articleId === undefined) {
-            addArticle({
-                // userId is pulled from local storage
-                userId,
-                title: article.title,
-                url: article.url,
-                synopsis: article.synopsis,
-                dateAdded: Date.now(),
-            })
-            // And then you will be directed to /articles
-            .then(() => history.push("/articles"))
-        } else {
+            if (article.title && article.synopsis && article.url) {
+                addArticle({
+                    // userId is pulled from local storage
+                    userId,
+                    title: article.title,
+                    url: article.url,
+                    synopsis: article.synopsis,
+                    dateAdded: Date.now(),
+                })
+                // And then you will be directed to /articles
+                .then(() => history.push("/articles"))
+            } else {
+                window.alert("You must fill out the whole form!")
+            }
+        }    
+        else {
             // If an article ID already exists, it knows to update the existing article
             if (articleId) {
                 updateArticle({
@@ -73,6 +87,11 @@ export const ArticleForm = (props) => {
             }
         }
     }
+
+
+
+
+
     return (
         <form className="articleForm">
             <h2 className="articleForm__title">Article Information:</h2>
