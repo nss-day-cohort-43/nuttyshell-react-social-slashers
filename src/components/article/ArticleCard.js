@@ -1,10 +1,12 @@
 import React, {useContext} from "react"
 import { ArticleContext } from "./ArticleProvider"
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export const ArticleCard = ({article}) => {
+    // We need this so that we can can direct user to edit their articles
     const history = useHistory()
-    const { articles, getArticles, addArticle, getArticleById, deleteArticle} = useContext(ArticleContext)
+    // Bring these functions from context
+    const { getArticles, deleteArticle} = useContext(ArticleContext)
 
     return (
     <section className="article">
@@ -21,6 +23,10 @@ export const ArticleCard = ({article}) => {
                         getArticles()
         		    })
     			}}>Delete Article
+			</button>
+            <button onClick={() => {
+				history.push(`/articles/edit/${article.id}`)
+				}}>Edit
 			</button>
     </section>
     )

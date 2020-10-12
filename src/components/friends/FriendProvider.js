@@ -53,9 +53,21 @@ export const FriendProvider = (props) => {
             .then(res => res.json())
     }
 
+    const getAlternateRelationship = (friendId) => {
+        return fetch(`http://localhost:8088/friends?friendUserId=${friendId}&userId=${userId}`)
+        .then(res => res.json())
+    }
+
+    const deleteAlternateRelationship = (relationshipId) => {
+        return fetch(`http://localhost:8088/friends/${relationshipId}`, {
+            method: "DELETE"
+        })
+        .then(getFriends)
+    }
+
     return (
         <FriendContext.Provider value={{
-            friends, getFriends, addFriend, getFriendById, deleteFriend, getUsers
+            friends, getFriends, addFriend, getFriendById, deleteFriend, getUsers, getAlternateRelationship, deleteAlternateRelationship
         }}>
             {props.children}
         </FriendContext.Provider>
