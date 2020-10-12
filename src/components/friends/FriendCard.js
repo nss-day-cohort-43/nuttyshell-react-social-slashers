@@ -3,7 +3,6 @@ import { FriendContext } from "./FriendProvider"
 
 //creates html for each friend, which can be clicked to view the details of that friend
 export const FriendCard = ({ friend }) => {
-    let relationship
     const { deleteFriend, getAlternateRelationship, deleteAlternateRelationship } = useContext(FriendContext)
     const deleteRelationships = () => {
         deleteFriend(friend.id)
