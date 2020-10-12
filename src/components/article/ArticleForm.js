@@ -47,12 +47,9 @@ export const ArticleForm = (props) => {
     const constructNewArticle = () => {
         // Our user ID is stored in local storage with the "slasherUser" variable
         const userId = parseInt(sessionStorage.getItem("slasherUser"))
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> master
         // This will test if an article ID is present. If not, it will be saved as a new article
         if (articleId === undefined) {
             if (article.title && article.synopsis && article.url) {

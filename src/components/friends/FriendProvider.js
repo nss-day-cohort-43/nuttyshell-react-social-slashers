@@ -11,10 +11,6 @@ export const FriendContext = createContext()
  */
 export const FriendProvider = (props) => {
     const [friends, setFriends] = useState([])
-<<<<<<< HEAD
-    const [ searchTerms, setSearchTerms ] = useState("")
-=======
->>>>>>> master
     const userId = sessionStorage.getItem("slasherUser")
 
     //gets all friend relationships where friendUserId is the current logged in user
