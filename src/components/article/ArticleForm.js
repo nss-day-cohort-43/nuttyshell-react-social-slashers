@@ -3,12 +3,16 @@ import { ArticleContext } from "../article/ArticleProvider"
 import { useHistory, useParams } from 'react-router-dom';
 
 export const ArticleForm = (props) => {
-    const { articles, getArticles, addArticle, getArticleById, deleteArticle} = useContext(ArticleContext)
-    //for edit, hold on to state of article in this view
+    // Bring these functions from context
+    const { getArticles, addArticle, getArticleById, updateArticle} = useContext(ArticleContext)
+    // Set selected article into state
     const [article, setArticle] = useState({})
+    // Used for retrieving an article ID from the url
     const {articleId} = useParams();
+    // Used to we can direct where the page goes after adding / updating an article
     const history = useHistory();
 
+    // Handle the form inputs
     const handleControlledInputChange = (event) => {
         //When changing a state object or array, 
         //always create a copy make changes, and then set state.
@@ -20,36 +24,55 @@ export const ArticleForm = (props) => {
         setArticle(newArticle)
     }
 
-    /* Get article state on initialization. */
+    // Get article state on initialization
     useEffect(() => {
        getArticles()
        .then(() => {
+           // This will check to see if an article has been selected using the article ID from the URL
            if (articleId) {
+               // This will pull the entire article object using the article ID
                getArticleById(articleId)
                .then(article => {
+                   // Set state with the selected article
                    setArticle(article)
                })
            }
        })
     }, [])
 
+    // This will be used for to create the objects that will be saved / updated
     const constructNewArticle = () => {
+        // Our user ID is stored in local storage with the "slasherUser" variable
         const userId = parseInt(localStorage.getItem("slasherUser"))
-
-        if (article.url === 0) {
-            window.alert("Please select an article")
+        // This will test if an article ID is present. If not, it will be saved as a new article
+        if (articleId === undefined) {
+            addArticle({
+                // userId is pulled from local storage
+                userId,
+                title: article.title,
+                url: article.url,
+                synopsis: article.synopsis,
+                dateAdded: Date.now(),
+            })
+            // And then you will be directed to /articles
+            .then(() => history.push("/articles"))
         } else {
-            if (articleId === undefined) {
-                addArticle({
+            // If an article ID already exists, it knows to update the existing article
+            if (articleId) {
+                updateArticle({
+                    // userId is pulled from local storage
                     userId,
                     title: article.title,
                     url: article.url,
                     synopsis: article.synopsis,
-                    dateAdded: Date.now(),
+                    dateAdded: article.dateAdded,
+                    id: article.id,
                 })
-                .then(() => history.push("/articles"))
+                // And then you will be directed to /articles
+                .then(() => history.push(`/articles/`))
+            }
         }
-    }}
+    }
     return (
         <form className="articleForm">
             <h2 className="articleForm__title">New Article</h2>
@@ -85,7 +108,7 @@ export const ArticleForm = (props) => {
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form
-                    constructNewArticle()
+                    constructNewArticle() // This will send the information off to be constructed into an object to be saved
                 }}
                 className="btn btn-primary">
                 Save Article
