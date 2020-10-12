@@ -5,7 +5,6 @@ import { ArticleList } from './article/ArticleList'
 import { ArticleProvider } from "./article/ArticleProvider"
 import { ArticleForm } from "./article/ArticleForm"
 
-import { TaskList } from "./task/TaskList.js"
 import { TaskProvider} from "./task/TaskProvider.js"
 import { TaskForm } from "./task/TaskForm.js"
 

@@ -11,7 +11,7 @@ export const TaskList = () => {
     const history = useHistory()
 
     useEffect(() => {
-        console.log("TaskList: useEffect - getTasks")
+        //console.log("TaskList: useEffect - getTasks")
         getTasks()
         
     }, []) 
@@ -28,7 +28,7 @@ export const TaskList = () => {
             <article className="taskList">
                 {
                     tasks.map(task => {
-                        console.log("taskList  .map  task: ", task);
+                        //console.log("taskList  .map  task: ", task);
                         return <TaskCard key={task.id} taskObj={task} />
                     })
                 }
