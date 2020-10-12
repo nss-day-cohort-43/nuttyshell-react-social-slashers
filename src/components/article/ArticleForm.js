@@ -75,7 +75,7 @@ export const ArticleForm = (props) => {
     }
     return (
         <form className="articleForm">
-            <h2 className="articleForm__title">New Article</h2>
+            <h2 className="articleForm__title">Article Information:</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="articleName">Article Title: </label>
