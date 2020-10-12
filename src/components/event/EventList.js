@@ -9,25 +9,27 @@ export const EventList = () => {
 	
 	//useEffect - reach out to the world for something
     useEffect(() => {
-        getEvents()
-        .then((response) => {
-            function compare(a, b) {
-                const eventA = a.startDate
-                const eventB = b.startDate
-              
-                let comparison = 0;
-                if (eventA > eventB) {
-                  comparison = 1;
-                } else if (eventA < eventB) {
-                  comparison = -1;
-                }
-                return comparison *-1;
-              }
-              
-            response.sort(compare)
-            setEvents(response)
-        })
+      getEvents()
+      .then((response)=> {
+        setEvents(response)})
     }, [])
+
+    useEffect(() => {
+      function compare(a, b) {
+        const eventA = a.startDate
+        const eventB = b.startDate
+            
+        let comparison = 0;
+        if (eventA > eventB) {
+          comparison = 1;
+        } else if (eventA < eventB) {
+          comparison = -1;
+        }
+        return comparison *-1;
+      }
+      events.sort(compare)
+      setEvents(events)   
+  }, [events])
 
 
     const history = useHistory()
