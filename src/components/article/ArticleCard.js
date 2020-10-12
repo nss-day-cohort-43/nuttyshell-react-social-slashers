@@ -13,7 +13,7 @@ export const MyArticleCard = ({article}) => {
         <h3 className="article__title">{article.title}</h3>
         <div className="article_synopsis">Synopsis: {article.synopsis}</div>
         <div className="article_date">Date: {new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
-        <div className="article_url">Url: {article.url}</div>
+        <div className="article_url">URL: {article.url}</div>
         <div className="article_author">Author: {article.user.name}</div>
         <button onClick={
     			() => {
@@ -39,7 +39,7 @@ export const FriendArticleCard = ({article}) => {
         <h3 className="article__title">{article.title}</h3>
         <div className="article_synopsis">Synopsis: {article.synopsis}</div>
         <div className="article_date">Date: {new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
-        <div className="article_url">Url: {article.url}</div>
+        <div className="article_url">URL: {article.url}</div>
         <div className="article_author">Author: {article.user.name}</div>
     </section>
     )
