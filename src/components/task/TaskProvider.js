@@ -32,6 +32,11 @@ export const TaskProvider = (props) => {
         .then(getTasks)
     }
 
+    const getTaskById = (taskId) => {
+        return fetch(`http://localhost:8088/tasks/${ taskId }?_expand=${userId}`)
+            .then(res => res.json())
+    }
+
     const editTask = (taskObj, taskId) => {
         return fetch(`http://localhost:8088/tasks/${taskId}`, {
             method: "PUT",
@@ -45,7 +50,7 @@ export const TaskProvider = (props) => {
 
     return (
         <TaskContext.Provider value={{
-            tasks, getTasks, saveTask, deleteTask, editTask
+            tasks, getTasks, saveTask, deleteTask, editTask, getTaskById
         }}>
             {props.children}
         </TaskContext.Provider>

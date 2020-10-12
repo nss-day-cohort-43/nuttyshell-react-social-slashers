@@ -3,23 +3,139 @@ import { TaskContext } from "./TaskProvider.js"
 import { useHistory, useParams } from 'react-router-dom';
 import "./Task.css"
 
+/** -------------------------------------------------------------- 
+ * 
+ * TaskForm should render when the user wants to create a new task
+ * or when the user wants to edit an existing task. The task form
+ * can be accessed by it's own parameters in the url:
+ * - '/home/createNewTask'
+ * - '/home/editTask/#taskId'
+ * 
+ * -------------------------------------------------------------- */
+
+
 
 export const TaskForm = () => {
     // This state changes when `getTasks()` is invoked below
-    const { saveTask, getTasks, editTask } = useContext(TaskContext)
+    const { saveTask, getTasks, editTask, getTaskById } = useContext(TaskContext)
     const history = useHistory()
 
     const [task, setTask] = useState({})
 
     const [isLoading, setIsLoading] = useState(true)
 
-    const {taskId} = useParams(); // grab task id from url
+    const {taskId} = useParams(); // grab task id from url. 
+    //The existence of this ^ parameter indicates the user wants to edit a specified task
+
+
+    const handleControlledInputChange = (event) => {
+        // pass in event as parameter to a function and the function becomes an event listener
+        //When changing a state object or array, 
+        //always create a copy make changes, and then set state.
+        const newTask = { ...task } // spread operator, spreads an object into separate arguments
+        //animal is an object with properties. 
+        //set the property to the new value
+
+        // evaluate whatever is in the [], accesses .task dynamically
+        newTask[event.target.task] = event.target.value // what is in the form, named exactly like it is in state
+
+        console.log("newTask: ", newTask);
+        //update state
+        setTask(newTask) //  causes re-render
+    }
 
     useEffect(() => {
         console.log("TaskList: useEffect - getTasks")
         getTasks()
+        .then(() => {
+            if (taskId) {
+                getTaskById(taskId)
+                .then(task => {
+                    setTask(task)
+                })
+            }
+        })
         
     }, []) 
+
+    const constructTaskObject = () => {
+        // Grab task information from form and create a new task object 
+        if(task.task === ""){
+            // task name not entered, show warning
+            window.alert("Enter a name for the task");
+        }
+        else if(task.expectedCompletionDate === ""){
+            // completion date not entered, show warning
+            window.alert("Select a date for when to complete the task");
+        }
+        else {
+            // Both input fields have data in them, proceed
+            setIsLoading(true); // still not sure what this does
+            if(taskId){
+                // PUT - edit task
+                // editTask takes an object and an Id ? 
+                editTask({
+                    id: task.id,
+                    userId: localStorage.getItem("slasherUser"),
+                    task: task.task,
+                    expectedCompletionDate: task.expectedCompletionDate,
+                    status: false
+                },taskId)
+                .then(() => history.push(`/editTask/${task.id}`))
+                .then(() => console.log("Editing Task: ", taskId))
+            }
+            else {
+                // POST - add new task
+                // saveTask takes an object
+                saveTask({
+                    userId: localStorage.getItem("slasherUser"),
+                    task: task.task,
+                    expectedCompletionDate: task.expectedCompletionDate,
+                    status: false
+                })
+                .then(() => history.push("/")) // want to return back to home page
+                .then(() => console.log("Creating new task"))
+            }
+        }
+    }
+
+    return (
+        <form className="taskForm">
+            <h2 className="taskForm--title">
+                {
+                    // if taskId exists, change form title to 'Edit Task'
+                    // Else, change title to 'New Task'
+                    taskId ? "Edit Task" : "New Task"  
+                } 
+            </h2>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="task--name">Task Name: </label>
+                    <input type="text" id="task--name" task="task" required autoFocus className="form-control"
+                    placeholder="Task Name"
+                    onChange={handleControlledInputChange()}
+                    defaultValue={task.task}/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="task--expCompDate">Expected Completion Date: </label>
+                    <input type="text" id="task--expCompDate" expectedCompletionDate="expectedCompletionDate" required autoFocus className="form-control"
+                    placeholder="Completion Date"
+                    onChange={handleControlledInputChange()}
+                    defaultValue={task.expectedCompletionDate}/>
+                </div>
+            </fieldset>
+            <button className="button saveTaskBtn" 
+            disabled={isLoading}
+            onClick={event => {
+                event.preventDefault() // prevent browser from submitting the form 
+                constructTaskObject()
+            }}>
+                Save Task
+            </button>
+        </form>
+    )
 
 }
 
