@@ -9,7 +9,7 @@ export const EventList = () => {
     const { events, getEvents, allEvents, getAllEvents } = useContext(EventContext)
     const { friends, getFriends } = useContext(FriendContext)
 
-    const userId = localStorage.getItem("slasherUser")
+    const userId = sessionStorage.getItem("slasherUser")
 
     const friendEvents = allEvents.filter((event) => {
       for (const friend of friends) {

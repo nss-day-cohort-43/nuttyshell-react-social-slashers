@@ -6,7 +6,7 @@ import { UserContext } from "./UserProvider"
 export const UserCard = ({ user }) => {
     const { addFriend } = useContext(FriendContext)
     const { getUsers } = useContext(UserContext)
-    const userId = parseInt(localStorage.getItem("slasherUser"))
+    const userId = parseInt(sessionStorage.getItem("slasherUser"))
 
     const addFriendObj = () => {
         addFriend({

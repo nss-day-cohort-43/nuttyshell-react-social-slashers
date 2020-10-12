@@ -14,7 +14,7 @@ export const UserProvider = (props) => {
     const [ users, setUsers] = useState([])
     const [ searchTerms, setSearchTerms ] = useState("")
     const {friends} = useContext(FriendContext)
-    const userId = localStorage.getItem("slasherUser")
+    const userId = sessionStorage.getItem("slasherUser")
     //gets all users so they can be added
     const getUsers = () => {
         return fetch(`http://localhost:8088/users`)

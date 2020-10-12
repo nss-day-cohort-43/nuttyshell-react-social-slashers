@@ -46,7 +46,7 @@ export const ArticleForm = (props) => {
     // This will be used for to create the objects that will be saved / updated
     const constructNewArticle = () => {
         // Our user ID is stored in local storage with the "slasherUser" variable
-        const userId = parseInt(localStorage.getItem("slasherUser"))
+        const userId = parseInt(sessionStorage.getItem("slasherUser"))
 
 
 
