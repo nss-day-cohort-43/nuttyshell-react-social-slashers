@@ -7,7 +7,7 @@ export const EventForm = (props) => {
     const userId = parseInt(localStorage.getItem("slasherUser"))
 
 
-    //for edit, hold on to state of animal in this view
+    //for edit, hold on to state of event in this view
     const [event, setEvent] = useState({})
     //wait for data before button is active
     const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +21,7 @@ export const EventForm = (props) => {
         //When changing a state object or array, 
         //always create a copy make changes, and then set state.
         const newEvent = { ...event }
-        //animal is an object with properties. 
+        //event is an object with properties. 
         //set the property to the new value
         newEvent[evt.target.name] = evt.target.value
 
@@ -51,7 +51,7 @@ export const EventForm = (props) => {
         return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
     };
     
-    // Get customers and locations. If animalId is in the URL, getAnimalById
+    // If eventId is in the URL, getEventById
     useEffect(() => {
         getEvents()
         .then(() => {
