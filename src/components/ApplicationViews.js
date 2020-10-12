@@ -8,6 +8,8 @@ import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
+import { EventProvider } from "./event/EventProvider"
+import { EventList } from "./event/EventList"
 
 
 export const ApplicationViews = (props) => {
@@ -42,6 +44,13 @@ export const ApplicationViews = (props) => {
                 </UserProvider>
 
             </FriendProvider>
+
+            <EventProvider>
+                <Route exact path="/events">
+                    <EventList />
+                </Route>
+            </EventProvider>
+
 
         </>
     )
