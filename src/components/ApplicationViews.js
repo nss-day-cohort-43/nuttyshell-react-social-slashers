@@ -11,6 +11,7 @@ import { UserProvider } from "./friends/UserProvider"
 import { EventProvider } from "./event/EventProvider"
 import { EventList } from "./event/EventList"
 import { EventForm } from "./event/EventForm"
+import { EventDetail } from "./event/EventDetail"
 
 
 export const ApplicationViews = (props) => {
@@ -63,6 +64,9 @@ export const ApplicationViews = (props) => {
                 </Route>
                 <Route exact path="/events/create">
                     <EventForm />
+                </Route>
+                <Route exact path="/events/detail/:id">
+                    <EventDetail />
                 </Route>
             </EventProvider>
 

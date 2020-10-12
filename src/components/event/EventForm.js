@@ -3,8 +3,8 @@ import { EventContext } from "./EventProvider"
 import { useHistory, useParams } from 'react-router-dom';
 
 export const EventForm = (props) => {
-    const { addEvent, getEventById, updateEvent } = useContext(EventContext)
-    const userId = localStorage.getItem("slasherUser")
+    const { getEvents, addEvent, getEventById, updateEvent } = useContext(EventContext)
+    const userId = parseInt(localStorage.getItem("slasherUser"))
 
 
     //for edit, hold on to state of animal in this view
@@ -17,33 +17,63 @@ export const EventForm = (props) => {
 
     //when field changes, update state. This causes a re-render and updates the view.
     //Controlled component
-    const handleControlledInputChange = (event) => {
+    const handleControlledInputChange = (evt) => {
         //When changing a state object or array, 
         //always create a copy make changes, and then set state.
         const newEvent = { ...event }
         //animal is an object with properties. 
         //set the property to the new value
-        newEvent[event.target.name] = event.target.value
+        newEvent[evt.target.name] = evt.target.value
+
         //update state
         setEvent(newEvent)
     }
     
+    //*** This code is copyright 2002-2016 by Gavin Kistner, !@phrogz.net
+    //*** It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
+    Date.prototype.customFormat = function(formatString){
+        var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+        YY = ((YYYY=this.getFullYear())+"").slice(-2);
+        MM = (M=this.getMonth()+1)<10?('0'+M):M;
+        MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+        DD = (D=this.getDate())<10?('0'+D):D;
+        DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+        th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+        formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+        h=(hhh=this.getHours());
+        if (h==0) h=24;
+        if (h>12) h-=12;
+        hh = h<10?('0'+h):h;
+        hhhh = hhh<10?('0'+hhh):hhh;
+        AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+        mm=(m=this.getMinutes())<10?('0'+m):m;
+        ss=(s=this.getSeconds())<10?('0'+s):s;
+        return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+    };
+    
     // Get customers and locations. If animalId is in the URL, getAnimalById
     useEffect(() => {
-        if (eventId){
-            getEventById(eventId)
-            .then(event => {
-                setEvent(event)
-                setIsLoading(false)
-            })
+        getEvents()
+        .then(() => {
+            if (eventId){
+                getEventById(eventId)
+                .then(event => {
+                    event.startDate = new Date(event.startDate).customFormat( "#YYYY#-#MM#-#DD#")
+                    event.endDate = new Date(event.endDate).customFormat( "#YYYY#-#MM#-#DD#")
+                    setEvent(event)
+                    setIsLoading(false)
+                })
             } else {
                 setIsLoading(false)
             }
+        })
     }, [])
 
     const constructEventObject = () => {
             //disable the button - no extra clicks
             setIsLoading(true);
+            let start = Date.parse(event.startDate)
+            let end = Date.parse(event.endDate)
             if (eventId){
                 //PUT - update
                 updateEvent({
@@ -53,8 +83,8 @@ export const EventForm = (props) => {
                     eventCity: event.eventCity,
                     eventState: event.eventState,
                     eventZip: event.eventZip,
-                    startDate: event.startDate,
-                    endDate: event.endDate
+                    startDate: start,
+                    endDate: end
                 })
                 .then(() => history.push(`/events/detail/${event.id}`))
             }else {
@@ -65,8 +95,8 @@ export const EventForm = (props) => {
                     eventCity: event.eventCity,
                     eventState: event.eventState,
                     eventZip: event.eventZip,
-                    startDate: event.startDate,
-                    endDate: event.endDate
+                    startDate: start,
+                    endDate: end
                 })
                 .then(() => history.push("/events"))
             }
@@ -87,7 +117,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventCity">Event City: </label>
-                    <input type="text" id="eventCity" name="eventCity" required autoFocus className="form-control" 
+                    <input type="text" id="eventCity" name="eventCity" required className="form-control" 
                     placeholder="Event City" 
                     onChange={handleControlledInputChange} 
                     defaultValue={event.eventCity}/>
@@ -96,7 +126,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventState">Event State: </label>
-                    <input type="text" id="eventState" name="eventState" required autoFocus className="form-control" 
+                    <input type="text" id="eventState" name="eventState" required className="form-control" 
                     placeholder="Event State" 
                     onChange={handleControlledInputChange} 
                     defaultValue={event.eventState}/>
@@ -105,7 +135,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventZip">Event Zipcode: </label>
-                    <input type="text" id="eventZip" name="eventZip" required autoFocus className="form-control" 
+                    <input type="text" id="eventZip" name="eventZip" required className="form-control" 
                     placeholder="Event Zipcode" 
                     onChange={handleControlledInputChange} 
                     defaultValue={event.eventZip}/>
@@ -114,7 +144,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventStart">Event Start: </label>
-                    <input type="date" id="eventStart" name="startDate" required autoFocus className="form-control" 
+                    <input type="date" id="eventStart" name="startDate" required className="form-control" 
                     placeholder="Event Start" 
                     onChange={handleControlledInputChange} 
                     defaultValue={event.startDate}/>
@@ -123,7 +153,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventEnd">Event End: </label>
-                    <input type="date" id="eventEnd" name="endDate" required autoFocus className="form-control" 
+                    <input type="date" id="eventEnd" name="endDate" required className="form-control" 
                     placeholder="Event End" 
                     onChange={handleControlledInputChange} 
                     defaultValue={event.endDate}/>
@@ -132,8 +162,8 @@ export const EventForm = (props) => {
 
             <button className="btn btn-primary"
                 disabled={isLoading}
-                onClick={event => {
-                    event.preventDefault() // Prevent browser from submitting the form
+                onClick={evt => {
+                    evt.preventDefault() // Prevent browser from submitting the form
                     constructEventObject()
                 }}>
             {eventId ? <>Save Event</> : <>Add Event</>}</button>
