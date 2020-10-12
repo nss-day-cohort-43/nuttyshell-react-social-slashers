@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react"
 import { TaskContext } from "./TaskProvider.js"
 import { useHistory, useParams } from 'react-router-dom';
-import "./Task.css"
+//import "./Task.css"
 
 /** -------------------------------------------------------------- 
  * 
@@ -27,7 +27,7 @@ export const TaskForm = () => {
     const {taskId} = useParams(); // grab task id from url. 
     //The existence of this ^ parameter indicates the user wants to edit a specified task
 
-
+    
     const handleControlledInputChange = (event) => {
         // pass in event as parameter to a function and the function becomes an event listener
         //When changing a state object or array, 
@@ -37,12 +37,13 @@ export const TaskForm = () => {
         //set the property to the new value
 
         // evaluate whatever is in the [], accesses .task dynamically
-        newTask[event.target.task] = event.target.value // what is in the form, named exactly like it is in state
+        newTask[event.target.name] = event.target.value // what is in the form, named exactly like it is in state
 
         console.log("newTask: ", newTask);
         //update state
         setTask(newTask) //  causes re-render
     }
+    
 
     useEffect(() => {
         console.log("TaskList: useEffect - getTasks")
@@ -52,19 +53,26 @@ export const TaskForm = () => {
                 getTaskById(taskId)
                 .then(task => {
                     setTask(task)
+                    setIsLoading(false)
                 })
+            }
+            else{
+                setIsLoading(false)
             }
         })
         
     }, []) 
 
     const constructTaskObject = () => {
+        console.log("Want to save task");
         // Grab task information from form and create a new task object 
         if(task.task === ""){
+            console.log("Task.task === __ ");
             // task name not entered, show warning
             window.alert("Enter a name for the task");
         }
         else if(task.expectedCompletionDate === ""){
+            console.log("Task.expCompDate === __ ");
             // completion date not entered, show warning
             window.alert("Select a date for when to complete the task");
         }
@@ -72,6 +80,7 @@ export const TaskForm = () => {
             // Both input fields have data in them, proceed
             setIsLoading(true); // still not sure what this does
             if(taskId){
+                console.log("task? : ", task);
                 // PUT - edit task
                 // editTask takes an object and an Id ? 
                 editTask({
@@ -81,10 +90,11 @@ export const TaskForm = () => {
                     expectedCompletionDate: task.expectedCompletionDate,
                     status: false
                 },taskId)
-                .then(() => history.push(`/editTask/${task.id}`))
+                .then(() => history.push(`/editTask/${task.id}`)) // want to return back to home page?
                 .then(() => console.log("Editing Task: ", taskId))
             }
             else {
+                console.log("task? : ", task);
                 // POST - add new task
                 // saveTask takes an object
                 saveTask({
@@ -111,18 +121,18 @@ export const TaskForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="task--name">Task Name: </label>
-                    <input type="text" id="task--name" task="task" required autoFocus className="form-control"
+                    <input type="text" id="task--name" name="task" required autoFocus className="form-control"
                     placeholder="Task Name"
-                    onChange={handleControlledInputChange()}
+                    onChange={handleControlledInputChange}
                     defaultValue={task.task}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="task--expCompDate">Expected Completion Date: </label>
-                    <input type="text" id="task--expCompDate" expectedCompletionDate="expectedCompletionDate" required autoFocus className="form-control"
+                    <input type="text" id="task--expCompDate" name="expectedCompletionDate" required autoFocus className="form-control"
                     placeholder="Completion Date"
-                    onChange={handleControlledInputChange()}
+                    onChange={handleControlledInputChange}
                     defaultValue={task.expectedCompletionDate}/>
                 </div>
             </fieldset>
