@@ -11,7 +11,7 @@ export const ArticleList = () => {
     const { articles, getArticles } = useContext(ArticleContext)
     const { friends, getFriends } = useContext(FriendContext)
     // This will let us refer to the logged in user
-    const thisUser = localStorage.getItem("slasherUser")
+    const thisUser = sessionStorage.getItem("slasherUser")
     // Filter out the articles that arent the users
     const myArticles = articles.filter((article) => {
         return article.userId === parseInt(thisUser)
