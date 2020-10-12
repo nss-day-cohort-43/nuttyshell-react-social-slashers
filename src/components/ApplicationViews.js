@@ -21,9 +21,11 @@ export const ApplicationViews = (props) => {
             </Route>
 
             <ArticleProvider>
-                <Route exact path="/articles">
-                    <ArticleList />
-                </Route>
+                <FriendProvider>
+                    <Route exact path="/articles">
+                        <ArticleList />
+                    </Route>
+                </FriendProvider>
             </ArticleProvider>
 
             <ArticleProvider>

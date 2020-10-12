@@ -1,38 +1,63 @@
 import React, { useContext, useEffect } from "react"
 import { ArticleContext } from "./ArticleProvider"
-import { ArticleCard } from "./ArticleCard"
+import { MyArticleCard, FriendArticleCard } from "./ArticleCard"
 import { useHistory } from "react-router-dom"
+import "./article.css"
+import { FriendContext } from "../friends/FriendProvider"
 
 export const ArticleList = () => {
   const history = useHistory()
    // This state changes when `getEmployees()` is invoked below
     const { articles, getArticles } = useContext(ArticleContext)
+    const { friends, getFriends } = useContext(FriendContext)
     // This will let us refer to the logged in user
     const thisUser = localStorage.getItem("slasherUser")
     // Filter out the articles that arent the users
     const myArticles = articles.filter((article) => {
         return article.userId === parseInt(thisUser)
     })
-
+    // This will filter all articles to find only articles with a user ID that match one of your friends user IDs
+    const friendArticles = articles.filter((article) => {
+      for (const friend of friends) {
+        if (friend.userId === article.userId) {
+          return article
+        }
+      }
+    })
 	//useEffect - reach out to the world for something
     useEffect(() => {
       // Get all of the articles upon page load
       getArticles()
+      getFriends()
     }, [])
-    // Display the articles in the following manner:
+    // Display the articles. Use "MyArticleCard" for users articles and "FriendArticleCard" for friend articles
     return (
     <>
-    <h2>Articles</h2>   
-    <div className="articles">
-      {
-        myArticles.map(article => {
-          return <ArticleCard key={article.id} article={article}/>
-			  })
-      }
+    <div className="articlesBox">
+      <div className="myArticles">
+        <h2> My Articles</h2>
+        <button onClick={() => {history.push("/articles/create")}}>
+          Add Article
+        </button>   
+        <div className="articles">
+          {
+          myArticles.map(article => {
+            return <MyArticleCard key={article.id} article={article}/>
+			    })
+          }
+        </div>
+      </div>
+      <div className="friendArticles">
+        <h2> Friend Articles </h2>
+        <div className="friendArticlesRender">
+          {
+          friendArticles.map(article => {
+            return <FriendArticleCard key={article.id} article={article}/>
+			    })
+          }
+        </div>
+      </div>
     </div>
-    <button onClick={() => {history.push("/articles/create")}}>
-      Add Article
-    </button>
     </>
     )
 }

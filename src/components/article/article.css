@@ -1,0 +1,8 @@
+.articlesBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.friendArticles {
+    margin-left: 5em;
+}
