@@ -8,8 +8,15 @@ import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
 import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
+<<<<<<< HEAD
 import { MessageProvider } from './message/MessageProvider'
 import { MessageForm } from "./message/MessageForm"
+=======
+import { EventProvider } from "./event/EventProvider"
+import { EventList } from "./event/EventList"
+import { EventForm } from "./event/EventForm"
+import { EventDetail } from "./event/EventDetail"
+>>>>>>> master
 
 
 export const ApplicationViews = (props) => {
@@ -55,6 +62,22 @@ export const ApplicationViews = (props) => {
                 </UserProvider>
 
             </FriendProvider>
+
+            <EventProvider>
+                <Route exact path="/events">
+                    <EventList />
+                </Route>
+                <Route path="/events/edit/:eventId(\d+)">
+                    <EventForm />
+                </Route>
+                <Route exact path="/events/create">
+                    <EventForm />
+                </Route>
+                <Route exact path="/events/detail/:id">
+                    <EventDetail />
+                </Route>
+            </EventProvider>
+
 
         </>
     )
