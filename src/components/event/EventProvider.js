@@ -11,12 +11,30 @@ export const EventContext = createContext()
  */
 export const EventProvider = (props) => {
     const [events, setEvents] = useState([])
+    //defines logged in user
     const userId = localStorage.getItem("slasherUser")
 
+    //fetches all events
     const getEvents = () => {
         return fetch(`http://localhost:8088/events?userId=${userId}`)
             .then(res => res.json())
-            .then(setEvents)
+            .then((response) => {
+                //sorts events by date oldest to newest
+                function compare(a, b) {
+                    const eventA = a.startDate
+                    const eventB = b.startDate
+                        
+                    let comparison = 0;
+                    if (eventA > eventB) {
+                      comparison = 1;
+                    } else if (eventA < eventB) {
+                      comparison = -1;
+                    }
+                    return comparison *1;
+                  }
+                  response.sort(compare)
+                  setEvents(response)
+            })
     }
 
     const addEvent = event => {
@@ -53,9 +71,10 @@ export const EventProvider = (props) => {
             .then(getEvents)
     }
 
+    //defines what info other components can use
     return (
         <EventContext.Provider value={{
-            events, getEvents, addEvent, getEventById, deleteEvent, updateEvent, setEvents
+            events, getEvents, addEvent, getEventById, deleteEvent, updateEvent
         }}>
             {props.children}
         </EventContext.Provider>

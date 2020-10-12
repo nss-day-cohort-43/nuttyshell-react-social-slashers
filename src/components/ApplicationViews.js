@@ -10,6 +10,7 @@ import { FriendSearch, UserList } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
 import { EventProvider } from "./event/EventProvider"
 import { EventList } from "./event/EventList"
+import { EventForm } from "./event/EventForm"
 
 
 export const ApplicationViews = (props) => {
@@ -54,6 +55,12 @@ export const ApplicationViews = (props) => {
             <EventProvider>
                 <Route exact path="/events">
                     <EventList />
+                </Route>
+                <Route path="/events/edit/:eventId(\d+)">
+                    <EventForm />
+                </Route>
+                <Route exact path="/events/create">
+                    <EventForm />
                 </Route>
             </EventProvider>
 
