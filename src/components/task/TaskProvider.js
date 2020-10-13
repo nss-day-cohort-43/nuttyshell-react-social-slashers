@@ -9,6 +9,7 @@ export const TaskProvider = (props) => {
 
 
     const getTasks = () => {
+        //setTasks([])
         return fetch(`http://localhost:8088/tasks?userId=${userId}`)
         .then(response => response.json())
         .then(setTasks)

@@ -19,10 +19,10 @@ export const TaskCard = ({taskObj}) => {
     //     setTask(newTask) //  causes re-render
     // }
     
-    useEffect(() => {
-        console.log("Grabbing all tasks -- useEffect in TaskCard.js ");
-        getTasks()
-    }, [])
+    // useEffect(() => {
+    //     console.log("Grabbing all tasks -- useEffect in TaskCard.js ");
+    //     getTasks()
+    // }, [])
 
     /**
      * Update task status in database depending on the boolean sent by the onChange
@@ -41,27 +41,20 @@ export const TaskCard = ({taskObj}) => {
 
     }
     
+    
     const renderEditBtn = () => {
-        if (taskItem.status){
-            // status is true, task is completed, do not show edit button
-            return <>
-                    <p>should there be a button here?</p>
-                    </>
-        }
-        else {
-            return <>
-                    <button 
-                        type="button" 
-                        className="taskBtn-edit" 
-                        id={`editTask--${taskItem.id}`}
-                        onClick={
-                            () => {
-                                history.push(`/editTask/${taskItem.id}`)
-                        }}>Edit</button>
-                </>
-        }
+        return <>
+            <button 
+                type="button" 
+                className="taskBtn-edit" 
+                id={`editTask--${taskItem.id}`}
+                onClick={
+                    () => {
+                        history.push(`/editTask/${taskItem.id}`)
+                }}>Edit</button>
+        </>
     }
-
+    
     // rendering tasks
     const renderTask = () => (
         <section className="task">
@@ -80,15 +73,9 @@ export const TaskCard = ({taskObj}) => {
             <label htmlFor={`task${taskItem.id}`}>{`${taskItem.task}`}</label>
             <div className={`date-${taskItem.id}`}>{`${taskItem.expectedCompletionDate}`}</div>
             <div className="taskActions">
-                <button 
-                    type="button" 
-                    className="taskBtn-edit" 
-                    id={`editTask--${taskItem.id}`}
-                    onClick={
-                        () => {
-                            history.push(`/editTask/${taskItem.id}`)
-                    }}>Edit</button>
-
+                {
+                    taskItem.status ? <></> : renderEditBtn()
+                }
 
                 <button 
                     type="button" 

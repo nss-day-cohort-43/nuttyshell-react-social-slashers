@@ -25,15 +25,13 @@ export const ApplicationViews = (props) => {
                 <Route exact path="/">
                     <Home />
                 </Route>
-            </TaskProvider>
 
-            <TaskProvider>
+
                 <Route exact path="/createTask">
                     <TaskForm />
                 </Route>
-            </TaskProvider>
 
-            <TaskProvider>
+
                 <Route path="/editTask/:taskId(\d+)">
                     <TaskForm />
                 </Route>
