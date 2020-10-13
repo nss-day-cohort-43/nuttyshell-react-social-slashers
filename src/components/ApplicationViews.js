@@ -16,16 +16,20 @@ import { EventProvider } from "./event/EventProvider"
 import { EventList } from "./event/EventList"
 import { EventForm } from "./event/EventForm"
 import { EventDetail } from "./event/EventDetail"
+import { MessageProvider } from "./message/MessageProvider"
+import { MessageForm } from './message/MessageForm'
 
 
 export const ApplicationViews = (props) => {
     return (
         <>
+            
             <TaskProvider>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-
+                <MessageProvider>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                </MessageProvider>
 
                 <Route exact path="/createTask">
                     <TaskForm />

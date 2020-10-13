@@ -1,0 +1,12 @@
+
+
+.navbar {
+    list-style: none;
+    display: flex;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+.navbar__item {
+    margin: 0 auto;
+}
