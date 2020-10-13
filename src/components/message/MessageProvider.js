@@ -25,9 +25,10 @@ export const MessageProvider = (props) => {
 
     // Delete a message using the message ID as a recerence
     const deleteMessage = messageID => {
-        return fetch(`http://localhost:8088/articles/${messageID}`, {
+        return fetch(`http://localhost:8088/messages/${messageID}`, {
             method: "DELETE"
         })
+        .then(getMessages)
     }
 
     // Update an existing article using the article ID as a reference

@@ -7,10 +7,27 @@ export const MessageCard = ({message}) => {
     const history = useHistory()
     // Bring these functions from context
     const { getMessages, deleteMessage} = useContext(MessageContext)
+    // Get Current User
+    const userId = parseInt(sessionStorage.getItem("slasherUser"))
+    if (message.userId === userId) {
+        return (
+            <section className="messageBox">
+                <div className="message">{message.user.name} : {message.message}
+                    <div className="msgDelete"
+                        onClick={() => {deleteMessage(message.id); history.push("/")}}>❌</div>
+                </div>
+            </section>
+            )
+    } else {
+        return (
+            <section className="messageBox">
+                <div className="message">{message.user.name} : {message.message}</div>
+            </section>
+            )
 
-    return (
-    <section className="messageBox">
-        <div className="message">{message.user.name} : {message.message}</div>
-    </section>
-    )
+
+    }
 }
+
+
+
