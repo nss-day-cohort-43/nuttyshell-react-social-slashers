@@ -1,0 +1,15 @@
+.messagesWindow {
+    border: 1px solid;
+    width: 60em;
+    padding: 1em;
+}
+
+#messageMessage {
+    width: 58.5em;
+}
+
+.allMessageBox {
+    width: 65em;
+    border: 1px solid;
+    padding: 1em;
+}
