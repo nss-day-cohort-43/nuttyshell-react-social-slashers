@@ -13,3 +13,10 @@
     border: 1px solid;
     padding: 1em;
 }
+
+
+
+.msgDelete {
+    float: right;
+    cursor: pointer;
+}
