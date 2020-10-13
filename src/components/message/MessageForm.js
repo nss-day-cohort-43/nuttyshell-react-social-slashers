@@ -51,6 +51,7 @@ export const MessageForm = (props) => {
                     // Clear the message input after sending message
                     const clearer = document.querySelector("#messageMessage")
                     clearer.value = ""
+                    message.message = ""
                 })
             } else {
                 window.alert("You must fill out the whole form!")
