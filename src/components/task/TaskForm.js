@@ -48,6 +48,7 @@ export const TaskForm = () => {
                 .then(task => {
                     setTask(task)
                     setIsLoading(false)
+                    
                 })
             }
             else{

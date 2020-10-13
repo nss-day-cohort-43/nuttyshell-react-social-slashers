@@ -5,93 +5,102 @@ import { TaskContext } from "./TaskProvider.js"
 export const TaskCard = ({taskObj}) => {
     const { deleteTask, editTask, getTasks } = useContext(TaskContext);
 
-    const history = useHistory()
+    const [taskItem, setTaskItem] = useState(taskObj)
 
+    const history = useHistory()
+    
+
+    // const handleControlledInputChange = (event) => {
+    //     const newTask = { ...task } // spread operator, spreads an object into separate arguments
+
+    //     // evaluate whatever is in the [], accesses .task dynamically
+    //     newTask[event.target.name] = event.target.value // what is in the form, named exactly like it is in state
+    //     //update state with each keystroke
+    //     setTask(newTask) //  causes re-render
+    // }
     
     useEffect(() => {
+        console.log("Grabbing all tasks -- useEffect in TaskCard.js ");
         getTasks()
     }, [])
 
-    const setTaskStatus = (isCompleted, taskIdParam) => {
-        if(isCompleted){ // if true is passed in -- if checkbox is 'checked'
-            editTask({
-                id: taskObj.id,
-                userId: sessionStorage.getItem("slasherUser"),
-                task: taskObj.task,
-                expectedCompletionDate: taskObj.expectedCompletionDate,
-                status: true // update status 
-            },taskIdParam)
-            .then(() => history.push("/"))
+    /**
+     * Update task status in database depending on the boolean sent by the onChange
+     * function for the checkbox input on a task card. The id of the task is also 
+     * passed in and used to target the specific task to update.
+     *  */ 
+    const setTaskStatus = (event) => {
+        console.log("taskItem: ", taskItem);
+        const newTask = { ...taskItem } // spread operator, spreads an object into separate arguments
+
+        // evaluate whatever is in the [], accesses .task dynamically
+        newTask[event.target.name] = taskItem.status ? false : true; // what is in the form, named exactly like it is in state
+        //update state with each keystroke
+        setTaskItem(newTask) //  causes re-render
+        editTask(newTask, taskItem.id)
+
+    }
+    
+    const renderEditBtn = () => {
+        if (taskItem.status){
+            // status is true, task is completed, do not show edit button
+            return <>
+                    <p>should there be a button here?</p>
+                    </>
         }
-        else if(!isCompleted){ // if false is passed in -- if checkbox is 'unchecked'
-            editTask({
-                id: taskObj.id,
-                userId: sessionStorage.getItem("slasherUser"),
-                task: taskObj.task,
-                expectedCompletionDate: taskObj.expectedCompletionDate,
-                status: false // update status 
-            },taskIdParam)
-            .then(() => history.push("/"))
+        else {
+            return <>
+                    <button 
+                        type="button" 
+                        className="taskBtn-edit" 
+                        id={`editTask--${taskItem.id}`}
+                        onClick={
+                            () => {
+                                history.push(`/editTask/${taskItem.id}`)
+                        }}>Edit</button>
+                </>
         }
     }
 
-
-
-    // rendering tasks that the user has not completed -- can edit or delete
-    const TaskStatusFalse = () => (
+    // rendering tasks
+    const renderTask = () => (
         <section className="task">
-            <input type="checkbox" id={`check--${taskObj.id}`} name={`task${taskObj.id}`} value={`${taskObj.status}`}
-            onChange={() => {
-                //handleControlledInputChange();
-                
-                let completed = true;
-                setTaskStatus(completed, taskObj.id); // change task status to true
-            }}/>
-            <label htmlFor={`task${taskObj.id}`}>{`${taskObj.task}`}</label>
-            <div className={`date-${taskObj.id}`}>{`${taskObj.expectedCompletionDate}`}</div>
-            <button type="button" className="taskBtn-edit" id={`editTask--${taskObj.id}`}
-            onClick={() => {
-                history.push(`/editTask/${taskObj.id}`)
-            }}>Edit</button>
-            <button type="button" className="taskBtn-delete" id={`deleteTask--${taskObj.id}`} 
-            onClick={
-                () => {
-                    deleteTask(taskObj.id)
-            }}>Delete</button>
+            <input 
+                type="checkbox" 
+                id={`check--${taskItem.id}`} 
+                name="status" 
+                value={`${taskItem.status}`}
+                checked={taskItem.status}
+                onChange={(e) => {
+                    // pressing the check box here will set the 
+                    // task status from 'uncompleted' (false) to 
+                    // 'completed' (true)
+                    setTaskStatus(e); // change task status
+                }}/>
+            <label htmlFor={`task${taskItem.id}`}>{`${taskItem.task}`}</label>
+            <div className={`date-${taskItem.id}`}>{`${taskItem.expectedCompletionDate}`}</div>
+            <div className="taskActions">
+                <button 
+                    type="button" 
+                    className="taskBtn-edit" 
+                    id={`editTask--${taskItem.id}`}
+                    onClick={
+                        () => {
+                            history.push(`/editTask/${taskItem.id}`)
+                    }}>Edit</button>
+
+
+                <button 
+                    type="button" 
+                    className="taskBtn-delete" 
+                    id={`deleteTask--${taskItem.id}`} 
+                    onClick={
+                        () => {
+                            deleteTask(taskItem.id)
+                    }}>Delete</button>      
+            </div>   
         </section>
     )
 
-    
-    // rendering tasks that the user has completed -- cannot edit, but can delete
-    const TaskStatusTrue = () => (
-        <section className="task">
-            <input type="checkbox" id={`check--${taskObj.id}`} name={`task${taskObj.id}`} value={`${taskObj.status}`} checked
-             onChange={() => {
-                let completed = false;
-                setTaskStatus(completed, taskObj.id); // change task status to false
-            }}/>
-            <label htmlFor={`task${taskObj.id}`}>{`${taskObj.task}`}</label>
-            <div className={`date-${taskObj.id}`}>{`${taskObj.expectedCompletionDate}`}</div>
-            <button type="button" className="taskBtn-delete" id={`deleteTask--${taskObj.id}`}
-            onClick={
-                () => {
-                    deleteTask(taskObj.id)
-            }}>Delete</button>
-            
-        </section>
-    )
-    
-    const checkTaskStatus = () => {
-        let output;
-        if (!taskObj.status){
-            output = TaskStatusFalse(taskObj)
-        }
-        else{
-            output = TaskStatusTrue(taskObj)
-        }
-        return output
-    }
-
-
-    return checkTaskStatus(taskObj)
+    return renderTask()
 }
