@@ -8,7 +8,7 @@ import { Register } from "./auth/Register"
 export const Slasher = () => (
     <>
         <Route render={() => {
-            if (localStorage.getItem("slasherUser")) {
+            if (sessionStorage.getItem("slasherUser")) {
                 return (
                     <>
                     <NavBar />

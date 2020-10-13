@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 export const EventForm = (props) => {
     const { getEvents, addEvent, getEventById, updateEvent } = useContext(EventContext)
-    const userId = parseInt(localStorage.getItem("slasherUser"))
+    const userId = parseInt(sessionStorage.getItem("slasherUser"))
 
 
     //for edit, hold on to state of event in this view
