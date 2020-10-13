@@ -16,7 +16,8 @@
 
 
 
-.msgDelete {
+.msgDelete, .msgEdit {
     float: right;
     cursor: pointer;
 }
+

@@ -40,6 +40,7 @@ export const MessageProvider = (props) => {
             },
             body: JSON.stringify(message)
         })
+        .then(getMessages)
     }
 
     // Below will provide the listed functions via MessageContext

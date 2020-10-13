@@ -34,10 +34,12 @@ export const MessageForm = (props) => {
 
     // This will be used for to create the objects that will be saved / updated
     const constructNewMessage = () => {
+        console.log(message)
         // Our user ID is stored in local storage with the "slasherUser" variable
         const userId = parseInt(sessionStorage.getItem("slasherUser"))
         // This will test if an article ID is present. If not, it will be saved as a new article
         if (messageId === undefined) {
+            console.log(messageId)
             if (message.message) {
                 addMessage({
                     // userId is pulled from local storage
@@ -90,7 +92,7 @@ export const MessageForm = (props) => {
                     <input type="text" id="messageMessage" name="message" required className="form-control" 
                     placeholder="Compose Message Here"
                     onChange={handleControlledInputChange}
-                    defaultValue=""
+                    defaultValue={message.message}
                     
                     />
                 </div>
