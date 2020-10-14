@@ -2,19 +2,22 @@ import React, { useContext, useEffect, useState } from "react"
 import { FriendContext } from "./FriendProvider"
 import { UserContext } from "./UserProvider"
 import { UserCard } from "./UserCard"
+import "./Friend.css"
 
 export const FriendSearch = () => {
     const { searchTerms, setSearchTerms } = useContext(UserContext)
 
     return (
         <>
-            Friend search:
-            <input type="text"
-                className="input--wide"
-                onKeyUp={
-                    (keyEvent) => setSearchTerms(keyEvent.target.value)
-                }
-                placeholder="Search for a user... " />
+            <div className="findFriendsContainer">
+                Friend search:
+                <input type="text"
+                    className="input--wide"
+                    onKeyUp={
+                        (keyEvent) => setSearchTerms(keyEvent.target.value)
+                    }
+                    placeholder="Search for a user... " />
+            </div>
         </>
     )
 }
@@ -47,15 +50,17 @@ export const UserList = () => {
 
     return (
         <>
-            <h1>Users</h1>
+            <div className="usersContainer">
+                <h1>Users</h1>
 
-            <div className="users">
-				{
-				filteredUsers.map(user => {
-					return <UserCard key={user.id} user={user} />
-				})
-				}
-			</div>
+                <div className="users">
+                    {
+                    filteredUsers.map(user => {
+                        return <UserCard key={user.id} user={user} />
+                    })
+                    }
+                </div>
+            </div>
         </>
     )
 }

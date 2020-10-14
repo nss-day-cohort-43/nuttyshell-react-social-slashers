@@ -1,15 +1,25 @@
-.articlesBox {
+
+.eventsContainer { 
     margin: 3em;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.friendArticles {
+/* .events {
+    margin-right: 3em;
+} */
+
+.friend__events {
     margin-left: 5em;
 }
 
-.articleForm {
+.eventForm {
+    width: 400px;
+    margin: 1em auto;
+}
+
+.eventDetail {
     width: 400px;
     margin: 1em auto;
 }

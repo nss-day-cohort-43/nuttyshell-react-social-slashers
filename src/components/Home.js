@@ -1,13 +1,15 @@
 import React from "react"
 import { TaskList } from "./task/TaskList.js"
+import { MessageForm } from "./message/MessageForm.js"
+import "./Home.css"
 
 export const Home = () => (
     <>
-        <h2>Social Slashers</h2>
+        <div className="container">
+            <TaskList />
 
-        <TaskList /> 
-
-        <div>Put tasks and chat here</div>
+            <MessageForm /> 
+        </div>
 
     </>
 )

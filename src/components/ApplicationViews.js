@@ -20,31 +20,24 @@ import { MessageProvider } from "./message/MessageProvider"
 import { MessageForm } from './message/MessageForm'
 import { WeatherCard } from './weather/WeatherCard'
 import { WeatherProvider } from "./weather/WeatherProvider"
-
+import { Header } from "./Header.js"
 
 export const ApplicationViews = (props) => {
     return (
         <>
-            <MessageProvider>
+            
             <TaskProvider>
-                <Route exact path="/">
-                    <Home />
-                    <MessageForm />
-                </Route>
-            </TaskProvider>
-            </MessageProvider>
-         
+                <MessageProvider>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                </MessageProvider>
 
-            <TaskProvider>
                 <Route exact path="/createTask">
                     <TaskForm />
                 </Route>
-            </TaskProvider>
 
 
-
-
-            <TaskProvider>
                 <Route path="/editTask/:taskId(\d+)">
                     <TaskForm />
                 </Route>
@@ -103,6 +96,10 @@ export const ApplicationViews = (props) => {
                     </Route>
                 </WeatherProvider>
             </EventProvider>
+
+            <Route exact path="/logout">
+                <Header />
+            </Route>
 
 
         </>

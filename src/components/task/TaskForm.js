@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react"
 import { TaskContext } from "./TaskProvider.js"
 import { useHistory, useParams } from 'react-router-dom';
-//import "./Task.css"
+import "./Tasks.css"
 
 /** -------------------------------------------------------------- 
  * 
@@ -41,19 +41,17 @@ export const TaskForm = () => {
     
 
     useEffect(() => {
-        getTasks()
-        .then(() => {
-            if (taskId) {
-                getTaskById(taskId)
-                .then(task => {
-                    setTask(task)
-                    setIsLoading(false)
-                })
-            }
-            else{
+        if (taskId) {
+            getTaskById(taskId)
+            .then(task => {
+                setTask(task)
                 setIsLoading(false)
-            }
-        })
+                
+            })
+        }
+        else{
+            setIsLoading(false)
+        }
         
     }, []) 
 
@@ -61,18 +59,18 @@ export const TaskForm = () => {
         // Grab task information from form and create a new task object 
         if (task.task && task.expectedCompletionDate){
             // Both input fields have data in them, proceed
-            setIsLoading(false); // still not sure what this does
+            //setIsLoading(false); // still not sure what this does
             if(taskId){
                 // PUT - edit task
                 // editTask takes an object and an Id ? 
                 editTask({
                     id: task.id,
-                    userId: sessionStorage.getItem("slasherUser"),
+                    userId: task.userId,
                     task: task.task,
                     expectedCompletionDate: task.expectedCompletionDate,
-                    status: false
+                    status: task.status
                 },taskId)
-                .then(() => history.push("/")) // want to return back to home page?
+                .then(() => history.push("/")) // want to return back to home page
             }
             else {
                 // POST - add new task
@@ -115,7 +113,7 @@ export const TaskForm = () => {
                     <input type="text" id="task--name" name="task" required autoFocus className="form-control"
                     placeholder="Task Name"
                     onChange={handleControlledInputChange}
-                    defaultValue={task.task}/>
+                    value={task.task}/>
                 </div>
             </fieldset>
             <fieldset>
@@ -123,7 +121,7 @@ export const TaskForm = () => {
                     <label htmlFor="task--expCompDate">Expected Completion Date: </label>
                     <input type="date" id="task--expCompDate" name="expectedCompletionDate" required className="form-control"
                     onChange={handleControlledInputChange}
-                    defaultValue={task.expectedCompletionDate}/>
+                    value={task.expectedCompletionDate}/>
                 </div>
             </fieldset>
             <button className="button saveTaskBtn" 

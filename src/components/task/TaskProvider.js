@@ -9,6 +9,7 @@ export const TaskProvider = (props) => {
 
 
     const getTasks = () => {
+        //setTasks([])
         return fetch(`http://localhost:8088/tasks?userId=${userId}`)
         .then(response => response.json())
         .then(setTasks)
@@ -25,9 +26,9 @@ export const TaskProvider = (props) => {
         .then(getTasks)
     }
 
-    const deleteTask = taskId => {
+    const deleteTask = (taskId) => {
         return fetch(`http://localhost:8088/tasks/${taskId}`, {
-            method: "DELETE",
+            method: "DELETE"
         })
         .then(getTasks)
     }

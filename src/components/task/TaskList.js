@@ -3,6 +3,7 @@ import { TaskContext } from "./TaskProvider.js" // gives us Tasks, getTasks, add
 import { TaskCard } from "./TaskCard.js"
 import { TaskForm } from "./TaskForm.js"
 import { useHistory } from "react-router-dom"
+import "./Tasks.css"
 
 export const TaskList = () => {
    // This state changes when `getTasks()` is invoked below
@@ -17,7 +18,7 @@ export const TaskList = () => {
     return (    
         <div className="tasks">
             <div className="titleAndActions--task">
-                <h1>Tasks</h1>
+                <h1 className="tasksTitle">Tasks</h1>
                 <button onClick={() => {history.push("/createTask")}}>
                     New Task
                 </button>
