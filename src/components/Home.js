@@ -4,7 +4,6 @@ import { MessageForm } from "./message/MessageForm.js"
 
 export const Home = () => (
     <>
-        <h2>Social Slashers</h2>
 
         <TaskList />
 

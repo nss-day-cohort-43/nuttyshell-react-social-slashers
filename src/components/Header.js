@@ -1,7 +1,7 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
 
-export const Home = () => {
+export const Header = () => {
 
     const history = useHistory();
     const userId = sessionStorage.getItem("slasherUser");
@@ -12,9 +12,11 @@ export const Home = () => {
         
     return (
         <>
-            <h2>Social Slashers</h2>
-            <div className="logout">
-                <button className="logout-btn" onClick={logout()}>Log Out</button>
+            <div className="header">
+                <h2>Social Slashers</h2>
+                <div className="logout">
+                    <button className="logout-btn" onClick={logout()}>Log Out</button>
+                </div>
             </div>
             
         </>

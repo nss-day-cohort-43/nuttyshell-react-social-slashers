@@ -5,14 +5,16 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 
+
 export const Slasher = () => (
     <>
         <Route render={() => {
             if (sessionStorage.getItem("slasherUser")) {
                 return (
                     <>
-                    <NavBar />
-                    <ApplicationViews />  
+                       
+                        <NavBar />
+                        <ApplicationViews />  
                     </>
                 )
             } else {
