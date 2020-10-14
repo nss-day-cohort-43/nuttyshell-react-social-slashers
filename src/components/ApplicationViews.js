@@ -20,7 +20,7 @@ import { MessageProvider } from "./message/MessageProvider"
 import { MessageForm } from './message/MessageForm'
 import { WeatherCard } from './weather/WeatherCard'
 import { WeatherProvider } from "./weather/WeatherProvider"
-
+import { Header } from "./Header.js"
 
 export const ApplicationViews = (props) => {
     return (
@@ -96,6 +96,10 @@ export const ApplicationViews = (props) => {
                     </Route>
                 </WeatherProvider>
             </EventProvider>
+
+            <Route exact path="/logout">
+                <Header />
+            </Route>
 
 
         </>

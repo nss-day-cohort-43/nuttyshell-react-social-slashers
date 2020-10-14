@@ -83,11 +83,11 @@ export const MessageForm = (props) => {
 			})
             }
         </div>
-        <form className="articleForm">
+        <form className="messageForm">
             <fieldset>
                 <div className="form-group">
               
-                    <input type="text" id="messageMessage" name="message" required className="form-control" 
+                    <input type="textarea" id="messageMessage" name="message" required className="form-control" 
                     placeholder="Compose Message Here"
                     onChange={handleControlledInputChange}
                     defaultValue=""

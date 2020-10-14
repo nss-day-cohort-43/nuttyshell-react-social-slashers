@@ -1,17 +1,25 @@
 .messagesWindow {
     border: 1px solid;
-    width: 60em;
+    /* width: 60em; */
     padding: 1em;
+    max-height: 400px;
+    overflow: auto;
+    
 }
 
 #messageMessage {
-    width: 58.5em;
+    /* width: 58.5em; */
+}
+
+.message {
+    margin-top: 0.75em;
 }
 
 .allMessageBox {
-    width: 65em;
+    flex: 1 0 50%;
     border: 1px solid;
     padding: 1em;
+    margin: 0 2em 0 2em;
 }
 
 

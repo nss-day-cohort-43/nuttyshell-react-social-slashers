@@ -12,7 +12,7 @@ export const MessageCard = ({message}) => {
     if (message.userId === userId) {
         return (
             <section className="messageBox">
-                <div className="message">{message.user.name} : {message.message}
+                <div className="message"><strong>{message.user.name}</strong> : {message.message}
                     <div className="msgDelete"
                         onClick={() => {deleteMessage(message.id); history.push("/")}}>❌</div>
                 </div>
@@ -21,7 +21,7 @@ export const MessageCard = ({message}) => {
     } else {
         return (
             <section className="messageBox">
-                <div className="message">{message.user.name} : {message.message}</div>
+                <div className="message"><strong>{message.user.name}</strong> : {message.message}</div>
             </section>
             )
 

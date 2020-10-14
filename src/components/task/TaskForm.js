@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react"
 import { TaskContext } from "./TaskProvider.js"
 import { useHistory, useParams } from 'react-router-dom';
-//import "./Task.css"
+import "./Tasks.css"
 
 /** -------------------------------------------------------------- 
  * 

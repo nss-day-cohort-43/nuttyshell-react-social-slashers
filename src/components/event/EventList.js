@@ -3,6 +3,7 @@ import { EventContext } from "./EventProvider"
 import { FriendContext } from "../friends/FriendProvider"
 import { EventCard, FriendEventCard } from "./EventCard"
 import { useHistory } from 'react-router-dom';
+import "./Event.css"
 
 export const EventList = () => {
    // This state changes when `getEvents()` is invoked below
@@ -33,47 +34,49 @@ export const EventList = () => {
     //future events are listed soonest to latest
     return (
       <>
-        <div className="events">
-          <h2>Events</h2>
-          <button onClick={() => {history.push("/events/create")}}>
-                    Add New Event
-          </button>
+        <div className="eventsContainer">
+          <div className="events">
+            <h2>Events</h2>
+            <button onClick={() => {history.push("/events/create")}}>
+                      Add New Event
+            </button>
+            <h3>Upcoming Events</h3>
+            <div className="events__future">
+              {
+            events.map(event => {
+              if(event.startDate >= Date.now()){
+                return <EventCard key={event.id} event={event} />}
+            })
+              }</div>
+            <h3>Past Events</h3>
+            <div className="events__past">
+              {
+            events.map(event => {
+              if(event.startDate < Date.now()){
+                return <EventCard key={event.id} event={event} />}
+            })
+              }</div>
+          </div>
+
+          <div className="friend__events">
+          <h2>Friends' Events</h2>
           <h3>Upcoming Events</h3>
           <div className="events__future">
             {
-          events.map(event => {
+          friendEvents.map(event => {
             if(event.startDate >= Date.now()){
-              return <EventCard key={event.id} event={event} />}
+              return <FriendEventCard key={event.id} event={event} />}
           })
             }</div>
           <h3>Past Events</h3>
           <div className="events__past">
             {
-          events.map(event => {
+          friendEvents.map(event => {
             if(event.startDate < Date.now()){
-              return <EventCard key={event.id} event={event} />}
+              return <FriendEventCard key={event.id} event={event} />}
           })
             }</div>
         </div>
-
-        <div className="friend__events">
-        <h2>Friends' Events</h2>
-        <h3>Upcoming Events</h3>
-        <div className="events__future">
-          {
-        friendEvents.map(event => {
-          if(event.startDate >= Date.now()){
-            return <FriendEventCard key={event.id} event={event} />}
-        })
-          }</div>
-        <h3>Past Events</h3>
-        <div className="events__past">
-          {
-        friendEvents.map(event => {
-          if(event.startDate < Date.now()){
-            return <FriendEventCard key={event.id} event={event} />}
-        })
-          }</div>
       </div>
     </>
     )

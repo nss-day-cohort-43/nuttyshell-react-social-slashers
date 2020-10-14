@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState} from "react"
 import { useHistory } from "react-router-dom"
 import { TaskContext } from "./TaskProvider.js" 
+import "./Tasks.css"
 
 export const TaskCard = ({taskObj}) => {
     const { deleteTask, editTask, getTasks } = useContext(TaskContext);

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "./WeatherProvider"
 import { useParams } from "react-router-dom"
 import { EventContext } from "../event/EventProvider"
+import "./Weather.css"
 
 //defines html for weather
 export const WeatherCard = () => {
