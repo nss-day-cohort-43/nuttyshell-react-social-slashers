@@ -1,12 +1,10 @@
-
-
 .navbar {
-    list-style: none;
     display: flex;
-    max-width: 50%;
-    margin: 0 auto;
+    flex-wrap: nowrap;
+    justify-content: left;
 }
 
 .navbar__item {
-    margin: 0 auto;
+    flex-basis: 20%;
+    list-style-type: none;
 }

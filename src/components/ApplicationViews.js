@@ -18,6 +18,8 @@ import { EventForm } from "./event/EventForm"
 import { EventDetail } from "./event/EventDetail"
 import { MessageProvider } from "./message/MessageProvider"
 import { MessageForm } from './message/MessageForm'
+import { WeatherCard } from './weather/WeatherCard'
+import { WeatherProvider } from "./weather/WeatherProvider"
 
 
 export const ApplicationViews = (props) => {
@@ -87,9 +89,12 @@ export const ApplicationViews = (props) => {
                 <Route exact path="/events/create">
                     <EventForm />
                 </Route>
-                <Route exact path="/events/detail/:id">
-                    <EventDetail />
-                </Route>
+                <WeatherProvider>
+                    <Route exact path="/events/detail/:id">
+                        <EventDetail />
+                        <WeatherCard />
+                    </Route>
+                </WeatherProvider>
             </EventProvider>
 
 

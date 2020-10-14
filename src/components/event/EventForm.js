@@ -72,8 +72,9 @@ export const EventForm = (props) => {
     const constructEventObject = () => {
             //disable the button - no extra clicks
             setIsLoading(true);
-            let start = Date.parse(event.startDate)
-            let end = Date.parse(event.endDate)
+            //javascript saves dates weird so I add a few hours to adjust time zone for proper displaying
+            let start = Date.parse(event.startDate)+21600000
+            let end = Date.parse(event.endDate)+21600000
             if (eventId){
                 //PUT - update
                 updateEvent({
