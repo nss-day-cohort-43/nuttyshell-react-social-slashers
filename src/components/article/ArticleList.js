@@ -33,12 +33,14 @@ export const ArticleList = () => {
     // Display the articles. Use "MyArticleCard" for users articles and "FriendArticleCard" for friend articles
     return (
     <>
-    <div className="articlesBox">
+    <div className="articlesBox margin">
       <div className="myArticles">
-        <h2> My Articles</h2>
-        <button onClick={() => {history.push("/articles/create")}}>
-          Add Article
-        </button>   
+        <div className="myArticleHeader">
+        <h2>Your Articles</h2>
+        <button className="addArticle" onClick={() => {history.push("/articles/create")}}>
+          New Article
+        </button>
+        </div>   
         <div className="articles">
           {
           myArticles.map(article => {
@@ -48,7 +50,7 @@ export const ArticleList = () => {
         </div>
       </div>
       <div className="friendArticles">
-        <h2> Friend Articles </h2>
+        <h2 className="friendArticleHeader"> Friend Articles </h2>
         <div className="friendArticlesRender">
           {
           friendArticles.map(article => {

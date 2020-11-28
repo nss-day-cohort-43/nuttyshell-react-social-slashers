@@ -16,18 +16,20 @@ export const FriendList = () => {
   const history = useHistory()
   //returns the user's list of friends
   return (
-    <div className="friends">
+    <div className="friends margin">
       <div className="friendsTop">
         <h2>Your Friends</h2>
-        <button onClick={()=> {history.push("friends/add")}}>
-          Add New Friend
+        <button className="addFriendButton"onClick={()=> {history.push("friends/add")}}>
+          Meet New Murderers
         </button>
       </div>
+      <div className="allFriendsContainer">
       {
         friends.map(friend => {
           return <FriendCard key={friend.id} friend={friend} />
         })
       }
+      </div>
     </div>
   )
 }

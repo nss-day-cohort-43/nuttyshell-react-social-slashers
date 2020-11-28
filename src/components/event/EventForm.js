@@ -104,7 +104,7 @@ export const EventForm = (props) => {
         }
     
     return (
-        <form className="eventForm">
+        <form className="eventForm margin">
             <h2 className="eventForm__title">{eventId ? <>Save Event</> : <>Add Event</>}</h2>
             <fieldset>
                 <div className="form-group">

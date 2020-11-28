@@ -90,7 +90,7 @@ export const ArticleForm = (props) => {
 
 
     return (
-        <form className="articleForm">
+        <form className="articleForm margin">
             <h2 className="articleForm__title">Article Information:</h2>
             <fieldset>
                 <div className="form-group">

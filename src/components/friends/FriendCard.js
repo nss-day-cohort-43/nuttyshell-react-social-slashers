@@ -18,8 +18,8 @@ export const FriendCard = ({ friend }) => {
     return (
     <section className="friend">
         <h3 className="friend__name">{ friend.user.name }</h3>
-        <button onClick={() => {
+        <button className="deleteFriendButton" onClick={() => {
                 deleteRelationships()
-            }}>Delete</button>
+            }}>KILL</button>
     </section>
 )}

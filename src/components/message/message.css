@@ -2,13 +2,9 @@
     border: 1px solid;
     /* width: 60em; */
     padding: 1em;
-    max-height: 400px;
+    height: 400px;
     overflow: auto;
     
-}
-
-#messageMessage {
-    /* width: 58.5em; */
 }
 
 .message {
@@ -22,9 +18,16 @@
     margin: 0 2em 0 2em;
 }
 
-
-
 .msgDelete {
     float: right;
     cursor: pointer;
+}
+
+.messagesWindow {
+    overflow-anchor: none;
+}
+
+.spacerDiv {
+    height: 1em;
+    overflow-anchor: auto;
 }

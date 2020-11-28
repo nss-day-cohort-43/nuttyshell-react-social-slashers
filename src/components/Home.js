@@ -5,7 +5,7 @@ import "./Home.css"
 
 export const Home = () => (
     <>
-        <div className="container">
+        <div className="container margin">
             <TaskList />
 
             <MessageForm /> 

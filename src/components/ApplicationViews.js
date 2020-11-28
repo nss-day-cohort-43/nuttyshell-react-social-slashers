@@ -10,7 +10,7 @@ import { TaskForm } from "./task/TaskForm.js"
 
 import { FriendProvider } from "./friends/FriendProvider"
 import { FriendList } from "./friends/FriendList"
-import { FriendSearch, UserList } from "./friends/FriendSearch"
+import { FriendsUsers } from "./friends/FriendSearch"
 import { UserProvider } from "./friends/UserProvider"
 import { EventProvider } from "./event/EventProvider"
 import { EventList } from "./event/EventList"
@@ -70,8 +70,7 @@ export const ApplicationViews = (props) => {
 
                 <UserProvider>
                     <Route exact path="/friends/add">
-                        <FriendSearch />
-                        <UserList />
+                        <FriendsUsers />
                     </Route>
                 </UserProvider>
 

@@ -18,8 +18,8 @@ export const TaskList = () => {
     return (    
         <div className="tasks">
             <div className="titleAndActions--task">
-                <h1 className="tasksTitle">Tasks</h1>
-                <button onClick={() => {history.push("/createTask")}}>
+                <h2 className="tasksTitle">Tasks</h2>
+                <button className="newTask" onClick={() => {history.push("/createTask")}}>
                     New Task
                 </button>
             </div>

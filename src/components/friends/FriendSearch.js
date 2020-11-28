@@ -10,13 +10,13 @@ export const FriendSearch = () => {
     return (
         <>
             <div className="findFriendsContainer">
-                Friend search:
+                Slasher search:
                 <input type="text"
                     className="input--wide"
                     onKeyUp={
                         (keyEvent) => setSearchTerms(keyEvent.target.value)
                     }
-                    placeholder="Search for a user... " />
+                    placeholder="Search for a slasher... " />
             </div>
         </>
     )
@@ -51,7 +51,7 @@ export const UserList = () => {
     return (
         <>
             <div className="usersContainer">
-                <h1>Users</h1>
+                <h3>Slashers</h3>
 
                 <div className="users">
                     {
@@ -62,5 +62,14 @@ export const UserList = () => {
                 </div>
             </div>
         </>
+    )
+}
+
+export const FriendsUsers = () => {
+    return (
+        <div class="addContainer margin">
+            <FriendSearch/>
+            <UserList />
+        </div>
     )
 }

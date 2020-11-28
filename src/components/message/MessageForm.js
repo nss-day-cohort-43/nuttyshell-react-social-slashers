@@ -30,6 +30,7 @@ export const MessageForm = (props) => {
     // Get article state on initialization
     useEffect(() => {
        getMessages()
+       updateScroll()
     }, [])
 
     // This will be used for to create the objects that will be saved / updated
@@ -71,17 +72,28 @@ export const MessageForm = (props) => {
                 .then(() => history.push(`/`))
             }
         }
+        
     }
+
+    function updateScroll(){
+        var element = document.querySelector(".messagesWindow");
+        if(element){
+            element.scrollTop = element.scrollHeight;
+        }
+        
+    }
+
     return (
         <>
         <div className="allMessageBox">
-        <h2>Messages</h2>   
+        <h2>Deathly Discussion</h2>   
         <div className="messagesWindow">
             {
             messages.map(message => {
                 return <MessageCard key={message.id} message={message}/>
 			})
             }
+            <div className="spacerDiv"></div>
         </div>
         <form className="messageForm">
             <fieldset>
@@ -99,9 +111,10 @@ export const MessageForm = (props) => {
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form
                     constructNewMessage() // This will send the information off to be constructed into an object to be saved
+                    updateScroll()
                 }}
                 className="btn btn-primary">
-                Save Message
+                Send
             </button>
         </form>
         </div>

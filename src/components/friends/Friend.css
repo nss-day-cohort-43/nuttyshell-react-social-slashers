@@ -1,28 +1,51 @@
-
 .friends {
     display: block;
-    margin: 3em 20%;
-    border: 2px black solid;
+    border: 2px white solid;
     padding: 10px;
+    width: 100%;
 }
 
 .friendsTop {
     display: flex;
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
-
-
 .findFriendsContainer {
-    margin-top: 5em;
-    margin-left: 5em;
     display: flex;
     flex-direction: column;
-    margin-right: 30%;
     max-width: 300px;
 }
 
-.usersContainer {
-    margin-left: 5em;
+.addContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.addFriendButton {
+    width: 10em;
+    height: 3em;
+    margin-top: 1em;
+    margin-left: 1.5em;
+}
+
+.friend {
+    display: flex;
+    margin: 1em;
+    border: 1px white solid;
+    padding: 0.5em;
+}
+
+.allFriendsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.deleteFriendButton {
+    height: 2em;
+    margin-top: 1em;
+    margin-left: 1.5em;
 }

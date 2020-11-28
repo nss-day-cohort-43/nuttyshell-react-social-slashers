@@ -1,6 +1,6 @@
 import React, {useContext} from "react"
 import { ArticleContext } from "./ArticleProvider"
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // Used to render users articles. Will also enable deleting and editing of these articles.
 export const MyArticleCard = ({article}) => {
@@ -10,11 +10,9 @@ export const MyArticleCard = ({article}) => {
     const { getArticles, deleteArticle} = useContext(ArticleContext)
     return (
     <section className="article">
-        <h3 className="article__title">{article.title}</h3>
-        <div className="article_synopsis">Synopsis: {article.synopsis}</div>
-        <div className="article_date">Date: {new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
-        <div className="article_url">Url: {article.url}</div>
-        <div className="article_author">Author: {article.user.name}</div>
+        <a className="article__title" href={article.url} target="_blank">{article.title}</a>
+        <div className="article_synopsis">{article.synopsis}</div>
+        <div className="article_date">{new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
         <button onClick={
     			() => {
                     deleteArticle(article.id)
@@ -22,7 +20,7 @@ export const MyArticleCard = ({article}) => {
                         history.push("/articles")
                         getArticles()
         		    })
-    			}}>Delete Article
+    			}}>Delete
 			</button>
             <button onClick={() => {
 				history.push(`/articles/edit/${article.id}`)
@@ -36,11 +34,10 @@ export const MyArticleCard = ({article}) => {
 export const FriendArticleCard = ({article}) => {
     return (
     <section className="article">
-        <h3 className="article__title">{article.title}</h3>
-        <div className="article_synopsis">Synopsis: {article.synopsis}</div>
-        <div className="article_date">Date: {new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
-        <div className="article_url">Url: {article.url}</div>
-        <div className="article_author">Author: {article.user.name}</div>
+        <a className="article__title" href={article.url} target="_blank">{article.title}</a>
+        <div className="article_synopsis">{article.synopsis}</div>
+        <div className="article_author">By: {article.user.name}</div>
+        <div className="article_date">{new Date(article.dateAdded).toLocaleDateString('en-US')}</div>
     </section>
     )
 }

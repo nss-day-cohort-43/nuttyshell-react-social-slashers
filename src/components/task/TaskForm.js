@@ -99,7 +99,7 @@ export const TaskForm = () => {
     }
 
     return (
-        <form className="taskForm">
+        <form className="taskForm margin">
             <h2 className="taskForm--title">
                 {
                     // if taskId exists, change form title to 'Edit Task'

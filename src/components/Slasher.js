@@ -12,7 +12,6 @@ export const Slasher = () => (
             if (sessionStorage.getItem("slasherUser")) {
                 return (
                     <>
-                        <h2>Social Slashers</h2>
                         <NavBar />
                         <ApplicationViews />  
                     </>

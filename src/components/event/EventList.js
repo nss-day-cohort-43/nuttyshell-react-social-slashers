@@ -36,7 +36,7 @@ export const EventList = () => {
       <>
         <div className="eventsContainer">
           <div className="events">
-            <h2>Events</h2>
+            <h2>Your Events</h2>
             <button onClick={() => {history.push("/events/create")}}>
                       Add New Event
             </button>
